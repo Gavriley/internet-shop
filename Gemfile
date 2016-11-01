@@ -46,7 +46,6 @@ group :development do
 end
 
 gem 'figaro'
-gem 'devise'
 gem 'kaminari'
 gem 'bootstrap-sass'
 gem 'cancancan'
