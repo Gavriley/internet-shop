@@ -1,0 +1,11 @@
+<header>
+	<div class="top-menu">
+		<div class="content-top-menu">
+			<ul>
+				<% Category.where(parent: 0).each do |category| %>
+					<li><%= link_to category.name, category %></li>
+				<% end %>	
+			<ul>
+		</div>
+	</div>
+</header>
