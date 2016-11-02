@@ -1,11 +1,151 @@
 <header>
-	<div class="top-menu">
-		<div class="content-top-menu">
-			<ul>
-				<% Category.where(parent: 0).each do |category| %>
-					<li><%= link_to category.name, category %></li>
-				<% end %>	
-			<ul>
+	<div class="header-content">
+		<div class="account">
+			<a href="#" id="cart">Корзина(10)</a><br>
+			<a href="#">Вхід</a> | <a href="#">Реєстрація</a>
+		</div>
+	</div>
+	<div class="header-category">
+		<div class="category-container">
+			<ul class="category-list">
+				<% Category.where(parent_id: 0).each do |category| %>
+				<li>
+					<%= link_to category.name, category %>
+				</li>
+				<% end %>
+			</ul>	
 		</div>
 	</div>
 </header>
+
+<div class="content">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 products-list">
+			<div class="content">
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="product-item">
+							<div class="title">Lorem ipsum dolor sit amet</div>
+							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
+							<div class="price">3800.00 $</div>
+						</div>
+
+						<div class="product-info">
+							<a href="#">До корзини</a>
+							<a href="#" class="details">Детальніше</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
