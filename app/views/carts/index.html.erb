@@ -1,0 +1,29 @@
+<div class="cart-content">
+	<h1>Корзина</h1><hr>
+	<table>
+		<tr>
+			<th>Мініатюра</th>
+			<th>Назва</th>
+			<th>Ціна</th>
+			<th>Кількість</th>
+		</tr>
+
+		<% @cart.line_items.each do |line_item| %>
+			<tr>
+				<th>
+					<%= link_to line_item.product, target: "_blank" do %>
+					<%= image_tag line_item.product.thumbnail.url(:small) %>
+					<% end %>
+				</th>
+				<th><span><%= line_item.product.title %></span></th>
+				<th><%= number_to_currency(line_item.product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></th>
+				<th><%= line_item.count %></th>
+			</tr>
+		<% end %>
+		<tr>
+			<td id="total_price" colspan="4">
+				Загальна ціна: <%= number_to_currency(@cart.total_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %>
+			</td>
+		</tr>
+	</table>
+</div>

@@ -4,7 +4,7 @@ class Products < ActiveRecord::Migration
   		t.string :title, null: false, default: "", limit: 70
   		t.text :description, default: "", limit: 2000
   		t.attachment :thumbnail
-  		t.decimal :price, precision: 8, scale: 2, null: false, default: 0.01
+  		t.decimal :price, precision: 8, scale: 2, null: false
   		t.belongs_to :user, index: true
       t.boolean :published, null: false, default: true
 

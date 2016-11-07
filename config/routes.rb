@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   end  
 
   resources :categories, only: :show
+  resources :line_items, only: :create
+  resources :carts, only: :index
 
   root "products#index"
 

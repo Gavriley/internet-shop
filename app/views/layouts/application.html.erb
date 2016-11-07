@@ -7,8 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<%= render 'layouts/header' %>
 
-<%= yield %>
+	<div class="content">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 main-content">	
+				<%= yield %>
+			</div>
+		</div>
+	</div>		
 
+	<%= javascript_include_tag 'file' if controller_name == "products" && (action_name == "new" || action_name == "edit") %>
 </body>
 </html>

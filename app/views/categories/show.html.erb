@@ -1,0 +1,29 @@
+<div class="product-content">
+	<div class="content">
+		<% count = 0 %>	
+		<% @products.each do |product| %>
+		<%= '<div class="row">'.html_safe if count == 0 %>
+		<%= '</div><div class="row">'.html_safe if !count.zero? && (count % 3 == 0) %>
+	  
+
+	    <div class="col-md-4">
+	      <div class="product-item">
+	        <div class="title"><%= link_to product.title, product_path(product) %></div>
+	        <div class="image-block">
+	        	<%= link_to product_path(product) do %>
+	        	<%= image_tag product.thumbnail.url(:large) %>	
+	        	<% end %>	
+	        </div>
+	        <div class="price"><%= number_to_currency(product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></div>
+	      </div>
+	      <div class="product-info">
+	        <a href="#">До корзини</a>
+	        <%= link_to 'Детальніше', product_path(product), class: 'details' %>
+	      </div>
+	    </div>
+
+		<% count += 1 %>
+		<% end %>
+		</div>
+	</div>
+</div>

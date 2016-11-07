@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
 	before_action :set_category, only: :show
 
 	def show
-
+		@products = @category.products
 	end	
 
 	private

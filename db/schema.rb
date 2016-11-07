@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101160557) do
+ActiveRecord::Schema.define(version: 20161104112936) do
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 20161101160557) do
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true
 
-  create_table "categories_posts", force: :cascade do |t|
+  create_table "categories_products", force: :cascade do |t|
     t.integer "category_id"
     t.integer "product_id"
   end
 
-  add_index "categories_posts", ["category_id"], name: "index_categories_posts_on_category_id"
-  add_index "categories_posts", ["product_id"], name: "index_categories_posts_on_product_id"
+  add_index "categories_products", ["category_id"], name: "index_categories_products_on_category_id"
+  add_index "categories_products", ["product_id"], name: "index_categories_products_on_product_id"
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",    limit: 1000, default: "", null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20161101160557) do
   create_table "line_items", force: :cascade do |t|
     t.integer "product_id"
     t.integer "cart_id"
+    t.integer "count",      default: 1
   end
 
   add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id"
@@ -59,7 +60,7 @@ ActiveRecord::Schema.define(version: 20161101160557) do
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
-    t.decimal  "price",                               precision: 8, scale: 2, default: 0.01, null: false
+    t.decimal  "price",                               precision: 8, scale: 2,                null: false
     t.integer  "user_id"
     t.boolean  "published",                                                   default: true, null: false
     t.datetime "created_at",                                                                 null: false

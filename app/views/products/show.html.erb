@@ -1,0 +1,13 @@
+<div class="show-product">
+	<h1>Назва продукту: "<%= @product.title %>"</h1>
+	<h2>Ціна: <%= number_to_currency(@product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></h2>
+	
+	<% if @product.categories.exists? %>
+	<h3>
+		<%= @product.categories.count != 1 ? 'Категорії: ' : 'Категорія:' %>
+		<%= @product.categories.map { |category| link_to category.name, category }.join(", ").html_safe %>
+	</h3>
+	<% end %>
+
+	<p><%= image_tag @product.thumbnail.url(:large) %><%= sanitize(@product.description) %></p>
+</div>	

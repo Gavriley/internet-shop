@@ -1,151 +1,33 @@
-<header>
-	<div class="header-content">
-		<div class="account">
-			<a href="#" id="cart">Корзина(10)</a><br>
-			<a href="#">Вхід</a> | <a href="#">Реєстрація</a>
-		</div>
-	</div>
-	<div class="header-category">
-		<div class="category-container">
-			<ul class="category-list">
-				<% Category.where(parent_id: 0).each do |category| %>
-				<li>
-					<%= link_to category.name, category %>
-				</li>
-				<% end %>
-			</ul>	
-		</div>
-	</div>
-</header>
+<div class="product-content">
+	<div class="content">
+		<% count = 0 %>	
+		<% cache ['products', Product.latest] do %>
+		<% @products.each do |product| %>
+		<% cache ['product', product] do %>
+		<%= '<div class="row">'.html_safe if count == 0 %>
+		<%= '</div><div class="row">'.html_safe if !count.zero? && (count % 3 == 0) %>
+	  
 
-<div class="content">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2 products-list">
-			<div class="content">
+	    <div class="col-md-4">
+	      <div class="product-item">
+	        <div class="title"><%= link_to product.title, product_path(product) %></div>
+	        <div class="image-block">
+	        	<%= link_to product_path(product) do %>
+	        	<%= image_tag product.thumbnail.url(:large) %>	
+	        	<% end %>	
+	        </div>
+	        <div class="price"><%= number_to_currency(product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></div>
+	      </div>
+	      <div class="product-info">
+	        <%= link_to 'До корзини', line_items_path(product_id: product), method: :post, remote: true %>
+	        <%= link_to 'Детальніше', product_path(product), class: 'details' %>
+	      </div>
+	    </div>
 
-				<div class="row">
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-					
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-					
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-					
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-					
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-					
-					<div class="col-md-4">
-						<div class="product-item">
-							<div class="title">Lorem ipsum dolor sit amet</div>
-							<div class="image-block"><%= image_tag 'tovar.jpg' %></div>	
-							<div class="price">3800.00 $</div>
-						</div>
-
-						<div class="product-info">
-							<a href="#">До корзини</a>
-							<a href="#" class="details">Детальніше</a>
-						</div>
-					</div>
-				</div>
-			</div>
+		<% count += 1 %>
+		<% end %>
+		<% end %>
+		<% end %>
 		</div>
 	</div>
 </div>

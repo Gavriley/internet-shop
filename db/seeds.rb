@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Role.create([{ name: 'admin', title: 'Адміністратор' }, { name: 'manager', title: 'Менеджер' }, { name: 'client', title: 'Клієнт' }, { name: 'guest', title: 'Гість' }])
+Role.create([{ name: 'admin', title: 'Адміністратор' }, { name: 'manager', title: 'Менеджер' }, { name: 'client', title: 'Клієнт' }, { name: 'guest', title: 'Гість' }])
 
 category = Category.create(name: "Ноутбуки", parent_id: 0)
 category = Category.create(name: "Компютери", parent_id: 0)

@@ -1,10 +1,12 @@
 class Product < ActiveRecord::Base
 	has_attached_file :thumbnail, styles: { large: "300x300>", medium: "200x200>", small: "150x150>" }
 	
+	before_destroy :check_product_in_cart
+
 	has_many :comments
 	has_many :line_items
-	has_many :categories_posts
-	has_many :categories, through: :categories_posts
+	has_many :categories_products
+	has_many :categories, through: :categories_products
 
 	belongs_to :user
 
@@ -16,4 +18,20 @@ class Product < ActiveRecord::Base
 	validates_with AttachmentSizeValidator, attributes: :thumbnail, less_than: 1.megabytes, message: "Максимальний розмір мініатюри 1 мегабайт"
 
 	scope :latest, -> { where(published: true).order(created_at: :desc) }
+
+	after_validation :clean_thumbnail_errors
+
+	private
+		def check_product_in_cart
+			if line_items.empty?
+				return true
+			else	
+				notice = "Існують товарні позиції"
+				return false
+			end	
+		end	
+
+		def clean_thumbnail_errors
+			errors.delete(:thumbnail)
+		end	
 end	
