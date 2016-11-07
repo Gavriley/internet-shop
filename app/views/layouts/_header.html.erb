@@ -7,7 +7,11 @@
 					<a href="<%= carts_path %>">Корзина(<%= @cart.total_count %>)</a><br>
 					<% end %>
 				</div>
-				<a href="#">Вхід</a> | <a href="#">Реєстрація</a>
+				<% if user_signed_in? %>
+					<span>Ви ввійшли як <%= link_to current_user.login, edit_user_registration_path %></span>
+				<% else %>
+					<%= link_to 'Вхід', new_user_session_path  %> | <%= link_to 'Реєстрація', new_user_registration_path %>
+				<% end %>	
 			</div>
 		</div>
 	</div>

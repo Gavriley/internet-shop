@@ -1,62 +1,73 @@
-# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
-
 en:
   devise:
     confirmations:
-      confirmed: "Your email address has been successfully confirmed."
-      send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
-      send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes."
+      confirmed: "Ваш обліковий запис підтверджено. Ви увійшли в систему."
+      send_instructions: "Ви отримаєте лист з інструкціями по підтвердженню вашого облікового запису протягом декількох хвилин."
+      send_paranoid_instructions: "Якщо Ваша email адреса існує в нашій базі даних, то протягом декількох хвилин Ви отримаєте лист з інструкціями по підтвердженню Вашого облікового запису."
     failure:
-      already_authenticated: "You are already signed in."
-      inactive: "Your account is not activated yet."
-      invalid: "Invalid %{authentication_keys} or password."
-      locked: "Your account is locked."
-      last_attempt: "You have one more attempt before your account is locked."
-      not_found_in_database: "Invalid %{authentication_keys} or password."
-      timeout: "Your session expired. Please sign in again to continue."
-      unauthenticated: "You need to sign in or sign up before continuing."
-      unconfirmed: "You have to confirm your email address before continuing."
+      already_authenticated: "Ви вже увійшли в систему."
+      inactive: "Ваш обліковий запис ще не активований."
+      invalid: "Невірний email чи пароль."
+      invalid_token: "Невірний ключ аутентифікації."
+      locked: "Ваш обліковий запис заблоковано."
+      not_found_in_database: "Невірний email чи пароль."
+      timeout: "Час вашої сесії вичерпано. Будь-ласка, увійдіть в систему знову."
+      unauthenticated: "Вам необхідно увійти в систему чи зареєструватися."
+      unconfirmed: "Ви маєте підтвердити Ваш обліковий запис."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "Інструкції з підтвердження облікового запису"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "Інструкції з відновлення паролю"
       unlock_instructions:
-        subject: "Unlock instructions"
-      password_change:
-        subject: "Password Changed"
+        subject: "Інструкції з розблокування облікового запису"
     omniauth_callbacks:
-      failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
-      success: "Successfully authenticated from %{kind} account."
+      failure: "Ви не можете увійти в систему з облікового запису %{kind}, так як \"%{reason}\"."
+      success: "Вхід в систему з облікового запису %{kind} успішний."
     passwords:
-      no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
-      send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
-      send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
-      updated: "Your password has been changed successfully. You are now signed in."
-      updated_not_active: "Your password has been changed successfully."
+      format: "Невірний формат - має складати мінімум 8 символів, у тому числі одну прописну букву, рядкову букву і цифру."
+      no_token: "Ця сторінка доступна тільки при переході з email для скидання паролю. Якщо Ви перейшли по посиланню з листа, будь-ласка, переконайтесь, що Ви використовували повний URL."
+      send_instructions: "Протягом декількох хвилин Ви отримаєте лист з інструкціями по скиданню Вашого паролю."
+      send_paranoid_instructions: "Якщо Ваша email адреса існує в нашій базі даних, то протягом декількох хвилин Ви отримаєте лист з інструкціями по відновленню Вашого паролю."
+      updated: "Ваш пароль було змінено. Ви увійшли в систему."
+      updated_not_active: "Ваш пароль було змінено успішно."
     registrations:
-      destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
-      signed_up: "Welcome! You have signed up successfully."
-      signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
-      signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
-      signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
-      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address."
-      updated: "Your account has been updated successfully."
+      destroyed: "До побачення! Ваш обліковий запис був успішно видалений. Сподіваємось незабаром побачитись з Вами знову."
+      signed_up: "Ласкаво просимо! Ви успішно зареєструвалися."
+      signed_up_but_inactive: "Ви успішно зареєструвалися, але Ви не можете увійти в систему тому, що Ваш обліковий запис ще не активований."
+      signed_up_but_locked: "Ви успішно зареєструвалися, але Ви не можете увійти в систему тому, що Ваш обліковий запис заблоковано."
+      signed_up_but_unconfirmed: "Ви отримаєте лист з інструкціями по підтвердженню вашого облікового запису протягом декількох хвилин."
+      updated: "Ваш обліковий запис змінено."
+      update_needs_confirmation: "Ваш обліковий запис оновлено успішно, але необхідно підтвердити Вашу нову email адресу. Будь-ласка, перевірте свою електронну скриньку і перейдіть за посиланням \"Підтвердити\", шоб завершити оновлення email адреси."
     sessions:
-      signed_in: "Signed in successfully."
-      signed_out: "Signed out successfully."
-      already_signed_out: "Signed out successfully."
+      signed_in: "Ви увійшли в систему."
+      signed_out: "Ви вийшли з системи."
     unlocks:
-      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
-      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
-      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+      send_instructions: "Протягом декількох хвилин Ви отримаєте лист з інструкціями по розблокуванню Вашого облікового запису."
+      send_paranoid_instructions: "Якщо Ваш обліковий запис існує, то протягом декількох хвилин Ви отримаєте лист з інструкціями по його розблокуванню."
+      unlocked: "Ваш обліковий запис розблоковано. Ви увійшли в систему."
+
   errors:
     messages:
-      already_confirmed: "was already confirmed, please try signing in"
-      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-      expired: "has expired, please request a new one"
-      not_found: "not found"
-      not_locked: "was not locked"
+      already_confirmed: "вже підтверждено. Будь-ласка, спробуйте увійти в систему"
+      confirmation_period_expired: "має бути підтверджено протягом %{period}, будь-ласка, запросіть підтвердження запису завтра"
+      expired: "застаріла. Будь-ласка, запросіть нову"
+      not_found: "не знайдено"
+      not_locked: "не заблоковано"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "%{resource}: не вдалося зберегти через %{count} помилку"
+        few: "%{resource}: не вдалося зберегти через %{count} помилок"
+        many: "%{resource}: не вдалося зберегти через %{count} помилок"
+        other: "%{resource}: не вдалося зберегти через %{count} помилку"
+  
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "поле e-mail повинне бути заповнене"
+            password:
+              blank: "поле пароль повинне бути заповнене" 
+            current_password: 
+              blank: "поле поточний пароль повинне бути заповнене"   

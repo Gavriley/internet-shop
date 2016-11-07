@@ -4,6 +4,19 @@ class ProductsController < ApplicationController
 	def index
 		@title = "Головна"
 		@products = Product.latest
+
+		# require 'liqpay'
+		# liqpay = Liqpay.new
+		# res = liqpay.api 'invoice/send', { email: 'gavrileypetro@gmail.com', amount: 100, currency: 'UAH',
+		#   order_id: 'qwerty_12', 
+		#   sandbox: 1,
+		#   goods: [{
+		#               amount: 100,
+		#               count: 6,
+		#               unit: 'шт.',
+		#               name: 'Lorem' }]}
+
+		# File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << res }              
 	end
 	
 	def show

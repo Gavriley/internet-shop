@@ -26,6 +26,10 @@ a{cursor: pointer}
 a:hover{text-decoration: none}
 a:visited{text-decoration: none}
 
+i {
+	font-style: italic;
+}
+
 #notice {
 	width: 100%;
 	border: 1px dashed #286090;
@@ -418,4 +422,35 @@ ul.category-list {
 		font-size: 18px;
 		text-align: right;
 	}
+}
+
+.main-content {
+	
+	.account-block {
+		padding: 20px;
+
+		h2 {
+			font-size: 20px;
+			color: #337ab7;
+			margin-bottom: 20px;
+		}
+		
+		.info-block {
+			width: 40%;
+		}
+
+		input[type=text], input[type=email], input[type=password] {
+			width: 25%;
+		}
+	}
+}
+
+#alert {
+	width: 100%;
+	border: 1px dashed #ff0000;
+	border-radius: 10px;
+	padding: 12px;
+	font-size: 15px;
+	color: #ff0000;
+	margin-bottom: 15px;
 }
