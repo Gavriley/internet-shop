@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :categories, only: :show
   resources :line_items, only: :create
   resources :carts, only: :index
+  resources :orders
 
   root "products#index"
 

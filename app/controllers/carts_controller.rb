@@ -3,6 +3,7 @@ class CartsController < ApplicationController
 
 	def index
 		@cart = Cart.find(session[:cart_id])
+		@order = Order.new
 	end
 	
 	def destroy

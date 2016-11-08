@@ -11,12 +11,19 @@
 
 	<div class="content">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 main-content">	
-				<%= yield %>
+			<div class="col-md-8 col-md-offset-2">	
+				<% if notice %>
+				<div id="notice"><%= notice %></div>
+				<% end %>
+
+				<div class="main-content">
+					<%= yield %>
+				</div>
 			</div>
 		</div>
 	</div>		
 
 	<%= javascript_include_tag 'file' if controller_name == "products" && (action_name == "new" || action_name == "edit") %>
+	<%= javascript_include_tag 'order_modal' if controller_name == "carts" %>
 </body>
 </html>

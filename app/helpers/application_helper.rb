@@ -15,11 +15,6 @@ module ApplicationHelper
 		return number.to_s + " " + array_str[ (number%100 > 4 && number % 100 < 20) ? 2 : cases[[number%10, 5].min] ]
 	end 
 
-	def get_notice
-		return "" if notice.nil?
-		"<div id='notice'><h1>#{notice}</h1></div>".html_safe
-	end	
-
 	def get_error_messages object
 		return "" if object.errors.empty?
 		messages = object.errors.messages.map { |key, msg| content_tag(:li, msg.first) }.join

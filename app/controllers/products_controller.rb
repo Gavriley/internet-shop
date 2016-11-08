@@ -40,7 +40,6 @@ class ProductsController < ApplicationController
 				format.js { redirect_to edit_product_path(@product), notice: "Продукт успішно створений" }
 			else
 				format.js 
-				File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << @product.errors.full_messages }
 				format.json { render json: @product.errors }
 			end	
 		end	
