@@ -3,8 +3,8 @@
 		<div class="account">
 			<div class="account-container">
 				<div id="cart">
-					<% if !@cart.total_count.zero? %>
-					<a href="<%= carts_path %>">Корзина(<%= @cart.total_count %>)</a><br>
+					<% if session[:cart_id] %>
+					<a href="<%= carts_path %>">Корзина(<%= Cart.find(session[:cart_id]).total_count %>)</a><br>
 					<% end %>
 				</div>
 				<% if user_signed_in? %>

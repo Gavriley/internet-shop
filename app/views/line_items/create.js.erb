@@ -1,3 +1,3 @@
-$('#cart').html('<%= "<a href=#{carts_path}>Корзина(#{@cart.total_count})</a><br>".html_safe %>');
+$('#cart').html('<%= "<a href=#{carts_path}>Корзина(#{Cart.find(session[:cart_id]).total_count})</a><br>".html_safe %>');
 
 $('#cart a').css({'color':'#eee'}).animate({'color':'#337ab7'}, 1000)

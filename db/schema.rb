@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20161107151356) do
     t.string   "name",       null: false
     t.string   "address",    null: false
     t.string   "email",      null: false
+    t.integer  "amount"
+    t.string   "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -6,9 +6,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   before_action { @categories = Category.where(parent_id: 0) }
-  
-  include CurrentCart
-	before_action :set_cart
 
 	protected
 

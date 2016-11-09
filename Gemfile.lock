@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/excid3/state_machine.git
+  revision: 3dc8b15e8b0abf23ba575d1486aec6d4b333fcfb
+  specs:
+    state_machine (1.2.0)
+
+GIT
   remote: git://github.com/liqpay/sdk-ruby.git
   revision: 2970cc6a376835e84bfb812e3d9f5c7a108f5f71
   specs:
@@ -208,6 +214,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   sqlite3
+  state_machine!
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
