@@ -1,10 +1,23 @@
 <header>
 	<div class="header-content">
+		<div class="top-menu">
+			<ul>
+				<li><%= link_to 'Головна', root_path %></li>
+				<% if user_signed_in? %>
+				<li><%= link_to 'Кабінет', edit_user_registration_path %></li>
+				<li><%= link_to 'Вихід', destroy_user_session_path, method: :delete %></li>
+				<% else %>
+				<li><%= link_to 'Реєстрація', new_user_registration_path %></li>
+				<li><%= link_to 'Вхід', new_user_session_path  %></li>
+				<% end %>	
+			</ul>	
+		</div>
+
 		<div class="account">
 			<div class="account-container">
 				<div id="cart">
 					<% if session[:cart_id] %>
-					<a href="<%= carts_path %>">Корзина(<%= Cart.find(session[:cart_id]).total_count %>)</a><br>
+					<%= link_to "Корзина(#{Cart.find(session[:cart_id]).total_count})", carts_path %>
 					<% end %>
 				</div>
 				<% if user_signed_in? %>

@@ -2,6 +2,7 @@ class CartsController < ApplicationController
 	before_action :set_cart, only: [:destroy]
 
 	def index
+		@title = "Корзина"
 		@cart = Cart.find(session[:cart_id])
 		@order = Order.new
 	end

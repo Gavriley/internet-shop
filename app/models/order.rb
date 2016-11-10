@@ -13,8 +13,30 @@ class Order < ActiveRecord::Base
 		end	
 	end	
 
-	state_machine :state do
-		
-  end
+	state_machine :state, initial: :pending do
+		# before_transition pending: :processing, do: :qwerty
 
+		event :process do
+			transition pending: :processing
+		end	
+
+		event :failed do
+			transition processing: :failed
+		end	
+
+		event :success do 
+			transition processing: :successful
+		end	
+
+		event :refund do
+			transition successful: :refunded
+		end	
+
+		# state :processing do 
+		# 	def qwerty
+		# 		Time.zone.now
+		# 	end	
+		# end	
+  end
+  
 end	

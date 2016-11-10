@@ -131,7 +131,7 @@ input[type=file] {
 }	
 
 .product-item {
-	padding: 20px 30px;
+	padding: 20px 0px;
 	text-align: center;
 
 	.title {
@@ -139,19 +139,22 @@ input[type=file] {
 		font-size: 18px;
 		margin-bottom: 10px;
 	}
+	
+	.image-block {
+		width: 90%;
+		margin: auto;
 
-	img {
-		margin-top: 15px;
-
-		height: auto;
-		width: 250px;
-		display: block;
-		margin: 0 auto;
-	}
-
-	img:hover {
-		opacity: 0.5;
-		filter: alpha(opacity=50);
+		img {
+			height: auto;
+			width: 250px;
+			display: block;
+			margin: 0 auto;
+		}
+	
+		img:hover {
+			opacity: 0.5;
+			filter: alpha(opacity=50);
+		}
 	}
 
 	.price {
@@ -224,15 +227,19 @@ input[type=file] {
 }
 
 header {
-	height: 200px;
+	height: 180px;
 	width: 100%;
 
 	.header-content {
-		height: 150px;
+		height: 130px;
 		width: 100%;
+		
+		.top-menu {
+
+		} 
 
 		.account {
-			height: 100px;
+			height: 80px;
 			width: 300px;
 			float: right;
 			margin: 20px 20px 0px 0px;
@@ -252,6 +259,30 @@ header {
 			display: table-cell;
 			vertical-align: middle;
 		}
+	}
+}
+
+.top-menu {
+	li {
+		float: left;
+	}
+
+	li a {
+		display: block;
+		padding: 15px 18px;
+		font-size: 18px;
+		background: #f9f9f9;
+		color: #131f7d;
+		border-right: 1px solid #eee;
+	}
+
+	li a:hover {
+		background: #eee;
+	}
+
+	li:nth-last-child(1) a {
+		border-right: none;
+		border-bottom-right-radius: 25px; 
 	}
 }
 
@@ -286,6 +317,7 @@ ul.category-list {
     position: absolute;
     background-color: #f9f9f9;
     border-left: 4px solid #8b0000;
+    border-bottom-right-radius: 15px;
     min-width: 200px;
     z-index: 1;
 
@@ -323,7 +355,7 @@ ul.category-list {
 
 .account {
 	text-align: center;
-	font-size: 15px;
+	font-size: 16px;
 	display: table;
 		
 	.account-container {

@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
 	before_action :set_category, only: :show
 
 	def show
+		@title = "Категорія: #{@category.name}"
 		@products = @category.products
 	end	
 

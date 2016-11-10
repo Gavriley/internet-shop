@@ -8,15 +8,18 @@ Rails.application.routes.draw do
   resources :categories, only: :show
   resources :line_items, only: :create
   resources :carts, only: :index
-  resources :orders
+  
+  resources :orders do
+    post 'state', to: 'orders#state', as: 'state', on: :collection
+  end  
 
   root "products#index"
 
-  namespace :admin do
-    resources :products
-    resources :categories
-    resources :comments
-  end  
+  # namespace :admin do
+  #   resources :products
+  #   resources :categories
+  #   resources :comments
+  # end  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
