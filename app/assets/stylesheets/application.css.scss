@@ -112,6 +112,16 @@ input[type=file] {
 
 .main-content {
 
+	.order-content {
+		width: 60%;
+		border: 1px solid #eee;
+		margin: 20px auto;
+		padding: 20px;
+	}	
+}	
+
+.main-content {
+
 	.product-content {
 		padding: 25px 10px 0px 10px;	
 
@@ -525,3 +535,21 @@ ul.category-list {
 		float: right;
 	}
 }
+
+.order-content {
+	h1 {
+		text-align: center;
+		color: #000;
+		font-size: 20px;
+	}
+
+	h2 {
+		text-align: center;
+		font-size: 18px;
+	}
+
+	.liqpay {
+		width: 40%;
+		margin: 20px auto;
+	}
+}	

@@ -20,4 +20,12 @@ module ApplicationHelper
 		messages = object.errors.messages.map { |key, msg| content_tag(:li, msg.first) }.join
     "<div class='error-messages'><h4>Виправте #{plural_form(object.errors.count, ['помилку', 'помилки', 'помилок'])}: </h4><ul>#{messages}</ul></div>".html_safe
 	end	
+
+	# def get_liqpay_form(data)
+	# 	liqpay = Liqpay::Liqpay.new.cnb_form(data).gsub("\n", '')
+
+	# 	File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << liqpay }
+
+	# 	return liqpay
+	# end	
 end

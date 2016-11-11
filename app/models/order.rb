@@ -1,6 +1,12 @@
 class Order < ActiveRecord::Base
-	
+
 	has_many :line_items
+
+	# attr_accessor :liqpay_form
+
+	# def as_json(options={})
+	#   super(:include => [:liqpay_form])
+	# end
 
 	validates :email, presence: { message: "Заповніть поле e-mail" }, length: { maximum: 60, message: "e-mail може містити максимум 60 символів" }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "Некоректний e-mail" }
 	validates :name, presence: { message: "Заповніть поле імя" }, length: { maximum: 15, message: "Імя може містити максимум 15 символів" }
@@ -17,19 +23,23 @@ class Order < ActiveRecord::Base
 		# before_transition pending: :processing, do: :qwerty
 
 		event :process do
-			transition pending: :processing
+			transition pending: :process
 		end	
 
 		event :failed do
-			transition processing: :failed
+			transition process: :failed
 		end	
 
 		event :success do 
-			transition processing: :successful
+			transition process: :success
 		end	
 
-		event :refund do
-			transition successful: :refunded
+		event :reversed do
+			transition success: :reversed
+		end	
+
+		event :sandbox do
+			transition process: :sandbox
 		end	
 
 		# state :processing do 

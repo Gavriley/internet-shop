@@ -1,7 +1,5 @@
 <div class="product-content">
 	<div class="content">
-		<% liqpay = Liqpay.new.api 'invoice/send', { sandbox: '1',email: 'gavrileypetro@gmail.com', amount: 5, currency: 'UAH', order_id: '123269' } %>
-
 		<% count = 0 %>	
 		<% cache ['products', Product.latest] do %>
 		<% @products.each do |product| %>

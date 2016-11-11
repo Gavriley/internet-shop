@@ -22,6 +22,7 @@ module InternetShop
     # config.i18n.default_locale = :uk
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    # config.active_support.escape_html_entities_in_json = false
     config.active_record.raise_in_transactional_callbacks = true
   end
 end

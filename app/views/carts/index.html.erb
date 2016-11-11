@@ -28,7 +28,7 @@
 	</table>
 	<div class="make-order"><%= link_to "Оформити заказ", "", class: 'btn btn-default', id: 'push_order' %></div>
 	<div id="order_block">
-		<div class="modal-content">
+		<div class="modal-content" id="modal_content">
 			<h1>Оформлення заказу</h1>		
 			<%= form_for @order, html: { method: :post }, remote: true do |f| %>
 			<div id="info_block"></div>
