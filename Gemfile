@@ -58,3 +58,13 @@ gem 'paperclip-i18n'
 gem 'remotipart', '~> 1.2'
 gem 'liqpay', github: 'liqpay/sdk-ruby'
 gem 'state_machine', github: 'excid3/state_machine'
+
+group :development, :test do
+	gem 'rspec-rails', '~>3.5'
+	gem 'faker'
+	gem 'factory_girl'
+end	
+
+group :test do
+	gem 'database_cleaner'
+end	
