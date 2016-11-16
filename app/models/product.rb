@@ -10,9 +10,10 @@ class Product < ActiveRecord::Base
 
 	belongs_to :user
 
+	validates :user, presence: { message: "Помилка при добавленні товару" }
 	validates :title, presence: { message: "Заповніть поле заголовок" }, length: { maximum: 70, message: "Заголовок може містити максимум 70 символів" }
 	validates :description, length: { maximum: 2000, message: "Опис може містити максимум 2000 символів" }
-	validates :price, numericality: { grater_than_or_equal_to: 0.01, message: "Введіть коректну ціну" }
+	validates :price, numericality: { greater_than_or_equal_to: 0.01, message: "Введіть коректну ціну" }
 	
 	validates_attachment :thumbnail, content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "image/jpg"], message: "Некоректний формат мініатюри" }
 	validates_with AttachmentSizeValidator, attributes: :thumbnail, less_than: 1.megabytes, message: "Максимальний розмір мініатюри 1 мегабайт"

@@ -36,6 +36,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec-rails', '~>3.5'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'faker'
   gem 'byebug'
 end
 
@@ -58,12 +62,6 @@ gem 'paperclip-i18n'
 gem 'remotipart', '~> 1.2'
 gem 'liqpay', github: 'liqpay/sdk-ruby'
 gem 'state_machine', github: 'excid3/state_machine'
-
-group :development, :test do
-	gem 'rspec-rails', '~>3.5'
-	gem 'faker'
-	gem 'factory_girl'
-end	
 
 group :test do
 	gem 'database_cleaner'

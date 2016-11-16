@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module InternetShop
   class Application < Rails::Application
-    config.web_console.whitelisted_ips = '54.229.105.178'
+    # config.web_console.whitelisted_ips = '54.229.105.178'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -23,6 +23,8 @@ module InternetShop
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     # config.active_support.escape_html_entities_in_json = false
+
+    # config.web_console.development_only = false
     config.active_record.raise_in_transactional_callbacks = true
   end
 end

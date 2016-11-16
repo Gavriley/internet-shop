@@ -3,8 +3,11 @@
 		<% count = 0 %>	
 		<% cache ['products', Product.latest] do %>
 		<% @products.each do |product| %>
+
 		<% cache ['product', product] do %>
+		
 		<%= '<div class="row">'.html_safe if count == 0 %>
+		
 		<%= '</div><div class="row">'.html_safe if !count.zero? && (count % 3 == 0) %>
 	  
 

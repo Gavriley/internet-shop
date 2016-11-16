@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :login, uniqueness: { message: "Логін вже використовується" }, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true, message: "В логіні присутні недопустимі символи" },
-  	length: { maximum: 15, message: "Максимальний розмір логіна 15 символів" }, presence: { message: "Заповніть поле логін" }
-  validates :name, length: { maximum: 15, message: "Максимальний розмір імені 15 символів" }, presence: { message: "Заповніть поле імя" }	
+  	length: { maximum: 25, message: "Максимальний розмір логіна 25 символів" }, presence: { message: "Заповніть поле логін" }
+  validates :name, length: { maximum: 50, message: "Максимальний розмір імені 50 символів" }, presence: { message: "Заповніть поле імя" }	
 
   validates_attachment :avatar, content_type: { content_type: ["image/jpeg", "image/png", "image/gif", "image/jpg"], message: "Некоректний формат аватару" }
   validates_with AttachmentSizeValidator, attributes: :avatar, less_than: 1.megabytes, message: "Максимальний розмір аватару 1 мегабайт" 

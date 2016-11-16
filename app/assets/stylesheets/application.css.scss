@@ -26,6 +26,11 @@ a{cursor: pointer}
 a:hover{text-decoration: none}
 a:visited{text-decoration: none}
 
+.body-content {
+	width: 60%;
+	margin: auto;
+}
+
 i {
 	font-style: italic;
 }
@@ -123,7 +128,8 @@ input[type=file] {
 .main-content {
 
 	.product-content {
-		padding: 25px 10px 0px 10px;	
+		min-height: 300px;
+		padding: 25px 10px 0px 10px;
 
 		.product-item {
 			margin-bottom: 10px;
@@ -151,7 +157,7 @@ input[type=file] {
 	}
 	
 	.image-block {
-		width: 90%;
+		width: 100%;
 		margin: auto;
 
 		img {

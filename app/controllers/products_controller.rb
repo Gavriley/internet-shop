@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
 	before_action :set_product, only: [:show, :edit, :update, :destroy]
+	skip_before_filter :verify_authenticity_token
 
 	def index
 		@title = "Головна"
@@ -21,6 +22,7 @@ class ProductsController < ApplicationController
 
 	def create
 		@product = Product.new(product_params)
+		@product.user = current_user
 
 		respond_to do |format|
 			if @product.save
