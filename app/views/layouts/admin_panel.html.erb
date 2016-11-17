@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= get_panel_title %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<%= render 'layouts/admin_bar' %>
+
+	<div class="admin-panel-content">
+		<% if notice %>
+			<div id="notice"><%= notice %></div>
+		<% end %>
+
+		<div class="main-content">
+			<%= yield %>
+		</div>	
+	</div>	
+</body>
+</html>
