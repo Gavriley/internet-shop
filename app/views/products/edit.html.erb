@@ -3,7 +3,7 @@
   	<%= form_for @product, html: { multipart: true, method: :put }, remote: true do |f| %>
   	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 		<div class="col-md-6 product-block">
-			<div id="info_block"></div>
+			<div id="info_block"><%= get_error_messages(@product) %></div>
 
 			<div class="form-group">
 				<%= f.text_field :title, placeholder: "Введіть заголовок", class: "form-control" %>

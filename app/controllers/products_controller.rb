@@ -26,8 +26,10 @@ class ProductsController < ApplicationController
 
 		respond_to do |format|
 			if @product.save
+				format.html { redirect_to edit_product_path(@product), notice: "Продукт успішно створений" }
 				format.js { redirect_to edit_product_path(@product), notice: "Продукт успішно створений" }
 			else
+				format.html { render :new }
 				format.js 
 				format.json { render json: @product.errors }
 			end	

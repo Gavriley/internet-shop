@@ -38,7 +38,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails', '~>3.5'
   gem 'factory_girl_rails'
-  gem 'capybara'
   gem 'faker'
   gem 'byebug'
 end
@@ -65,4 +64,6 @@ gem 'state_machine', github: 'excid3/state_machine'
 
 group :test do
 	gem 'database_cleaner'
+  gem 'capybara'
+  # gem 'selenium-webdriver'
 end	
