@@ -20,4 +20,14 @@ module ApplicationHelper
 		messages = object.errors.messages.map { |key, msg| content_tag(:li, msg.first) }.join
     "<div class='error-messages'><h4>Виправте #{plural_form(object.errors.count, ['помилку', 'помилки', 'помилок'])}: </h4><ul>#{messages}</ul></div>".html_safe
 	end	
+
+	def get_orders_unchecked_count
+		@orders_count = Order.where(checked: true).count if @orders_count.nil?
+		
+		if @orders_count.zero?
+			return ''
+		else
+			return "<span class='order-counter'>#{@orders_count}</span>".html_safe
+		end	
+	end
 end

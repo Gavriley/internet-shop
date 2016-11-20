@@ -39,40 +39,6 @@ input[type=file] {
 	display: none;
 }
 
-#notice {
-	width: 100%;
-	border: 1px dashed #286090;
-	border-radius: 10px;
-	padding: 12px 30px;
-	margin: 15px 0px;
-	color: #286090;
-	font-size: 16px;
-}
-
-.error-messages {
-	width: 100%;
-	border: 1px dashed #ff0000;
-	border-radius: 10px;
-	padding: 12px;
-	font-size: 15px;
-	color: #ff0000;
-	margin-bottom: 15px;
-
-	h4 {
-		color: #286090;
-		font-size: 18px;
-	}
-
-	ul {
-		padding-top: 10px;
-		padding-left: 20px;
-	}
-
-	li:before {
-		content: "\27A4 \0020";
-	}
-}
-
 .admin-bar-base {
 	height: 30px;
 
@@ -100,6 +66,16 @@ input[type=file] {
 		padding-left: 5px;
 		padding-right: 15px; 
 	}
+	
+	span.order-counter {
+		background-color: #ff9833;
+		font-weight: bold;
+		border-radius: 20px;
+		margin-left: -12px; 
+		font-size: 15px;
+		padding: 1px 7px;
+		color: #fff; 
+	}
 
 	a:hover {
 		color: #c2c2c2;
@@ -110,7 +86,7 @@ input[type=file] {
 	}
 
 	.center-bar-side {
-		padding-left: 12%; 
+		padding-left: 6%; 
 		float: left;
 	}
 

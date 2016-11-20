@@ -8,6 +8,8 @@ class Order < ActiveRecord::Base
 	#   super(:include => [:liqpay_form])
 	# end
 
+	scope :latest, -> { order(created_at: :desc) }
+
 	validates :email, presence: { message: "Заповніть поле e-mail" }, length: { maximum: 60, message: "e-mail може містити максимум 60 символів" }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "Некоректний e-mail" }
 	validates :name, presence: { message: "Заповніть поле імя" }, length: { maximum: 15, message: "Імя може містити максимум 15 символів" }
 	validates :address, presence: { message: "Заповніть поле адреса" }, length: { maximum: 255, message: "Адреса може містити максимум 255 символів" }
@@ -19,8 +21,19 @@ class Order < ActiveRecord::Base
 		end	
 	end	
 
+	def set_on_check
+		self.checked = true
+		save!
+	end	
+
+	def set_off_check
+		self.checked = false
+		save!
+	end	
+
 	state_machine :state, initial: :pending do
-		# before_transition pending: :processing, do: :qwerty
+
+		after_transition do: :set_on_check
 
 		event :process do
 			transition pending: :process

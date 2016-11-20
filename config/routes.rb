@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :products
     resources :categories
     resources :comments
+    resources :orders
   end  
 
   # The priority is based upon order of creation: first created -> highest priority.

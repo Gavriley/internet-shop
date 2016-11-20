@@ -3,6 +3,40 @@
 	margin: auto;
 }
 
+#notice {
+	width: 100%;
+	border: 1px dashed #286090;
+	border-radius: 10px;
+	padding: 12px 30px;
+	margin: 15px 0px;
+	color: #286090;
+	font-size: 16px;
+}
+
+.error-messages {
+	width: 100%;
+	border: 1px dashed #ff0000;
+	border-radius: 10px;
+	padding: 12px;
+	font-size: 15px;
+	color: #ff0000;
+	margin-bottom: 15px;
+
+	h4 {
+		color: #286090;
+		font-size: 18px;
+	}
+
+	ul {
+		padding-top: 10px;
+		padding-left: 20px;
+	}
+
+	li:before {
+		content: "\27A4 \0020";
+	}
+}
+
 #raper_file {
 	color: #337ab7;
 	cursor: pointer;

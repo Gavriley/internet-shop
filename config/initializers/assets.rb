@@ -14,3 +14,4 @@ Rails.application.config.assets.precompile += %w( file.js )
 Rails.application.config.assets.precompile += %w( order_modal.js )
 
 Rails.application.config.assets.precompile += %w( main.css )
+Rails.application.config.assets.precompile += %w( admin.css )

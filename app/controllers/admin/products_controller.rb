@@ -5,7 +5,8 @@ class Admin::ProductsController < Admin::AdminController
 	end
 
 	def index
-
+		@title = "Товари"
+		@products = Product.latest  
 	end
 
 end	

@@ -11,11 +11,13 @@
 					<%= image_tag 'icon-products.png' %>
 					<%= link_to 'Товари', admin_products_path %>
 					<%= image_tag 'icon-new-product.png' %>
-					<%= link_to 'Добавити товар', new_admin_product_path %>
+					<%= link_to 'Добавити товар', new_admin_product_path %>'
+					<%= image_tag 'icon-order.png' %>
+					<%= link_to 'Замовлення', admin_orders_path %> <%= get_orders_unchecked_count %>
 				</div>
 				<div class="right-bar-side">
 					<%= image_tag 'icon-profile.png' %>
-					<%= link_to "Вітаєми вас, Kasumi", admin_root_path %>
+					<%= link_to "Вітаємо вас, Kasumi", admin_root_path %>
 					<%= image_tag 'icon-logout.png' %>
 					<%= link_to 'Вихід', admin_root_path %>
 				</div>

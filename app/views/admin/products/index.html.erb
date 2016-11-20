@@ -1,0 +1,39 @@
+<div class="main-center-block">
+	<h1>Список товарів</h1>
+	<hr>	
+	<% @products.each do |product| %>
+	<div class="product-item">
+		<span class="action-block">
+			<%= link_to 'Переглянути', product %>  | 
+			<%= link_to 'Видалити', product, method: :delete, data: { confirm: "Ви впевнені?" } %>
+		</span>
+
+		<h2><%= product.title %></h2>
+
+		<% if product.categories.exists? %>
+		<h3>
+			<%= product.categories.count != 1 ? 'Категорії: ' : 'Категорія:' %>
+			<%= product.categories.map { |category| link_to category.name, category }.join("/").html_safe %>
+		</h3>
+		<% end %>
+
+		<%= image_tag product.thumbnail.url(:small) %>	
+		<p><%= truncate(strip_tags(product.description), length: 700) %></p>
+		<div class="info-product-block">
+			<span class="product-info">
+				<Автор: <%= product.user.login %> | 
+				Статус: <%= product.published ? "опубліковано" : "закрито" %> | 
+				Дата: <%= product.created_at.strftime("%d").to_s %> 
+				<%= set_month(product.created_at.strftime("%m").to_i) %> 
+				<%= product.created_at.strftime("%Y").to_s %> року> 
+			</span>
+		</div>	
+	</div>
+	<% end %>
+</div>
+
+<div class="main-right-block">
+	<div class="right-block"></div>
+	<div class="right-block"></div>
+</div>
+

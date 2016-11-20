@@ -1,0 +1,14 @@
+		<div class="left-side-base">
+			<div class="left-side">
+				<ul>
+					<li><%= link_to 'Майстерня', admin_root_path %></li>
+					<li><%= link_to 'Товари', admin_products_path %></li>
+					<li>
+						<%= link_to admin_orders_path do %> 
+						Замовлення <%= get_orders_unchecked_count %>
+						<% end %>
+					</li>
+				</ul>
+			</div>
+		</div>
+		

@@ -56,13 +56,14 @@ ActiveRecord::Schema.define(version: 20161107151356) do
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
 
   create_table "orders", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "address",    null: false
-    t.string   "email",      null: false
+    t.string   "name",                       null: false
+    t.string   "address",                    null: false
+    t.string   "email",                      null: false
     t.integer  "amount"
     t.string   "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "checked",    default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "products", force: :cascade do |t|
