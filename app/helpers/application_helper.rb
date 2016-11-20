@@ -21,8 +21,8 @@ module ApplicationHelper
     "<div class='error-messages'><h4>Виправте #{plural_form(object.errors.count, ['помилку', 'помилки', 'помилок'])}: </h4><ul>#{messages}</ul></div>".html_safe
 	end	
 
-	def get_orders_unchecked_count
-		@orders_count = Order.where(checked: true).count if @orders_count.nil?
+	def get_orders_unverified_count
+		@orders_count = Order.where(unverified: true).count if @orders_count.nil?
 		
 		if @orders_count.zero?
 			return ''

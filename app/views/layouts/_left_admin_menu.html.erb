@@ -5,7 +5,7 @@
 					<li><%= link_to 'Товари', admin_products_path %></li>
 					<li>
 						<%= link_to admin_orders_path do %> 
-						Замовлення <%= get_orders_unchecked_count %>
+						Замовлення <%= get_orders_unverified_count %>
 						<% end %>
 					</li>
 				</ul>

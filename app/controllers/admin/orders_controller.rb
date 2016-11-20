@@ -9,7 +9,7 @@ class Admin::OrdersController < Admin::AdminController
 
 	def show 
 		@title = "Замовлення №#{@order.id}"
-		@order.set_off_check
+		@order.set_off_unverified
 	end	
 
 	private

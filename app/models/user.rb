@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_validation { login.strip!; name.strip! }
+
   validates :login, uniqueness: { message: "Логін вже використовується" }, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true, message: "В логіні присутні недопустимі символи" },
   	length: { maximum: 25, message: "Максимальний розмір логіна 25 символів" }, presence: { message: "Заповніть поле логін" }
   validates :name, length: { maximum: 50, message: "Максимальний розмір імені 50 символів" }, presence: { message: "Заповніть поле імя" }	

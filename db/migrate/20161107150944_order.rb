@@ -6,7 +6,7 @@ class Order < ActiveRecord::Migration
   		t.string :email, null: false
   		t.integer :amount
   		t.string :state
-      t.boolean :checked, null: false, default: false
+      t.boolean :unverified, null: false, default: false
 
   		t.timestamps null: false
   	end	

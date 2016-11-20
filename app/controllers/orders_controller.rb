@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 
 	def show
 		raise ActiveRecord::RecordNotFound unless @order.process?
-		@liqpay = Liqpay::Liqpay.new.cnb_form({ action: "pay", sandbox: 1, amount: 0.01, currency: "UAH", description: "Заказ №#{@order.id}", order_id: @order.id, version: "3", server_url: state_orders_url }).html_safe
+		@liqpay = Liqpay::Liqpay.new.cnb_form({ action: "pay", sandbox: 1, amount: 0.01, currency: "UAH", description: "Заказ №#{@order.id}", order_id: "order_number_is_#{@order.id}", version: "3", server_url: state_orders_url }).html_safe
 	end	
 
 	def create 
@@ -30,8 +30,11 @@ class OrdersController < ApplicationController
 
 	def state
 		order_json_params = JSON.parse(Base64.decode64(params["data"]))
-		Order.find(order_json_params["order_id"]).try(order_json_params["status"])
-		File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << "Response state!!! #{order_json_params}" }
+
+		# File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << "#{order_json_params["order_id"].delete("Заказ №")} {order_json_params['status'}" }
+
+		Order.find(order_json_params["order_id"].delete("order_number_is_")).try(order_json_params["status"])
+		
 	end	
 
 	private
