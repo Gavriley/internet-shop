@@ -1,0 +1,7 @@
+$("#line_item_<%= @line_item.id %>").remove()
+
+$("#total_price").html('Загальна ціна: <%= number_to_currency(@cart.total_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %>')
+
+$('#cart').html('<%= "<a href=#{carts_path}>Корзина(#{Cart.find(session[:cart_id]).total_count})</a><br>".html_safe %>');
+
+$('#cart a').css({'color':'#eee'}).animate({'color':'#337ab7'}, 1000)

@@ -12,6 +12,8 @@ module AdminHelper
 			return 'в очікуванні'
 		when 'sandbox'
 			return 'оплачено'
+		when 'failure'
+			return 'помилка'	
 		end		
 	end	
 end

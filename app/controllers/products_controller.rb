@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
 	def index
 		@title = "Головна"
-		@products = Product.latest             
+		@products = Product.includes([:categories, :user]).latest             
 	end
 	
 	def show
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
 
 	private
 		def set_product
-			@product = Product.find(params[:id])
+			@product = Product.includes([:categories, :user]).find(params[:id])
 		end	
 
 		def product_params

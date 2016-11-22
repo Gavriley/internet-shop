@@ -50,6 +50,7 @@ group :development do
   gem 'spring'
 end
 
+gem 'aasm'
 gem 'figaro'
 gem 'kaminari'
 gem 'bootstrap-sass'
@@ -60,10 +61,8 @@ gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-i18n'
 gem 'remotipart', '~> 1.2'
 gem 'liqpay', github: 'liqpay/sdk-ruby'
-gem 'state_machine', github: 'excid3/state_machine'
 
 group :test do
 	gem 'database_cleaner'
   gem 'capybara'
-  # gem 'selenium-webdriver'
 end	

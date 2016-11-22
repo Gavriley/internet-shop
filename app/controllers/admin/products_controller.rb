@@ -6,7 +6,7 @@ class Admin::ProductsController < Admin::AdminController
 
 	def index
 		@title = "Товари"
-		@products = Product.latest  
+		@products = Product.includes([:categories, :user]).latest  
 	end
 
 end	

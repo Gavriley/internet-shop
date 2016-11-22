@@ -8,17 +8,15 @@ class OrdersController < ApplicationController
 	before_action :set_order, only: :show
 
 	def show
-		raise ActiveRecord::RecordNotFound unless @order.process?
+		raise ActiveRecord::RecordNotFound if !@order.process?
 		@liqpay = Liqpay::Liqpay.new.cnb_form({ action: "pay", sandbox: 1, amount: 0.01, currency: "UAH", description: "Заказ №#{@order.id}", order_id: "order_number_is_#{@order.id}", version: "3", server_url: state_orders_url }).html_safe
 	end	
 
 	def create 
 		@order = Order.new(order_params)
-		@order.add_line_items_from_cart(@cart)
-		@order.amount = @cart.total_price
 
 		respond_to do |format|
-			if @order.save
+			if @order.valid?
 				handle_order
 				format.js { redirect_to @order } 
 			else
@@ -30,11 +28,10 @@ class OrdersController < ApplicationController
 
 	def state
 		order_json_params = JSON.parse(Base64.decode64(params["data"]))
-
-		# File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << "#{order_json_params["order_id"].delete("Заказ №")} {order_json_params['status'}" }
-
-		Order.find(order_json_params["order_id"].delete("order_number_is_")).try(order_json_params["status"])
-		
+		@order = Order.find(order_json_params["order_id"].delete("order_number_is_"))
+		@order.last_error = order_json_params['err_description'] if order_json_params['err_description']
+		@order.try(order_json_params["status"] + "!") if @order.try("may_#{order_json_params["status"]}?")
+		File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << order_json_params }
 	end	
 
 	private
@@ -43,13 +40,18 @@ class OrdersController < ApplicationController
 		end	
 
 		def handle_order 
+			@order.add_line_items_from_cart(@cart)
+			@order.amount = @cart.total_price
+			
+			@order.process
+			@order.save
+
 			Cart.destroy(session[:cart_id])
 			session[:cart_id] = nil
-			@order.process
 		end	
 
 		def set_order
-			@order = Order.find(params[:id])
+			@order = Order.includes(line_items: :product).find(params[:id])
 		end	
 
 		# def make_current_order

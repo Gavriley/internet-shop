@@ -187,6 +187,10 @@ body#admin_panel {
 	span.sandbox {
 		color: green;
 	}
+
+	span.failure {
+		color: red;
+	}
 }	
 
 table.order-table {

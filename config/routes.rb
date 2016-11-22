@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   end  
 
   resources :categories, only: :show
-  resources :line_items, only: :create
+
+  resources :line_items do
+    patch 'count_up', to: 'line_items#count_up', as: 'count_up', on: :member
+    patch 'count_down', to: 'line_items#count_down', as: 'count_down', on: :member
+  end
+    
   resources :carts, only: :index
   
   resources :orders do

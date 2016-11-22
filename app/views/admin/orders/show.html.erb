@@ -5,7 +5,7 @@
 	<p>Email замовника: <%= @order.email %></p>
 	<p>Адреса замовника: <%= @order.address %></p>
 	<p>Загальна сума замовлення: <%= number_to_currency(@order.amount, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></p>
-	<p>Статус: <span class="<%= @order.state %>"><%= get_ukr_order_state(@order.state) %></span></p>
+	<p>Статус: <span class="<%= @order.aasm.current_state %>"><%= get_ukr_order_state(@order.aasm.current_state.to_s) %></span></p>
 	<p>
 		Дата: <%= @order.created_at.strftime("%d").to_s %> 
 		<%= set_month(@order.created_at.strftime("%m").to_i) %> 

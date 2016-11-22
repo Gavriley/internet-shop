@@ -3,7 +3,7 @@ class CartsController < ApplicationController
 
 	def index
 		@title = "Корзина"
-		@cart = Cart.find(session[:cart_id])
+		@cart = Cart.includes(:line_items).find(session[:cart_id])
 		@order = Order.new
 	end
 	
@@ -15,7 +15,7 @@ class CartsController < ApplicationController
 
 	private
 		def set_cart
-			@cart = Cart.find(params[:id])
+			@cart = Cart.includes(:categories).find(params[:id])
 		end	
 
 		def cart_params

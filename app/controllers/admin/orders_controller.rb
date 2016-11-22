@@ -15,6 +15,6 @@ class Admin::OrdersController < Admin::AdminController
 	private
 
 		def set_order
-			@order = Order.find(params[:id])
+			@order = Order.includes(line_items: :product).find(params[:id])
 		end	
 end	

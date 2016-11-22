@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+	include AASM
 
 	has_many :line_items
 
@@ -22,44 +23,42 @@ class Order < ActiveRecord::Base
 	end	
 
 	def set_on_unverified
-		self.unverified = true
-		save!
+		self.update(unverified: true)
 	end	
 
 	def set_off_unverified
-		self.unverified = false
-		save!
+		self.update_column(:unverified, false)
 	end	
 
-	state_machine :state, initial: :pending do
+	def get_last_error
+		return "(#{last_error})" if last_error
+	end	
 
-		after_transition do: :set_on_unverified
+	def has_line_items?
+		return line_items.any?
+	end	
+
+	def has_correct_amount_price?
+		return !(amount.nil?) && (amount > 0.01)
+	end	
+
+	aasm do
+		state :pending, initial: true
+		state :process, :sandbox, :failure
+
+		after_all_transitions :set_on_unverified
 
 		event :process do
-			transition pending: :process
+			transitions from: :pending, to: :process, guard: [:has_line_items?, :has_correct_amount_price?]
 		end	
-
-		event :failed do
-			transition process: :failed
-		end	
-
-		event :success do 
-			transition process: :success
-		end	
-
-		event :reversed do
-			transition success: :reversed
-		end	
-
+		
 		event :sandbox do
-			transition process: :sandbox
+			transitions from: :process, to: :sandbox
 		end	
 
-		# state :processing do 
-		# 	def qwerty
-		# 		Time.zone.now
-		# 	end	
-		# end	
-  end
+		event :failure do
+			transitions from: :process, to: :failure
+		end	
+	end	
   
 end	
