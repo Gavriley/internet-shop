@@ -1,6 +1,5 @@
-<header>
-	<div class="header-content">
-		<div class="top-menu">
+	<header>
+		<div class="top-bar">
 			<ul>
 				<li><%= link_to 'Головна', root_path %></li>
 				<% if user_signed_in? %>
@@ -11,39 +10,9 @@
 				<li><%= link_to 'Вхід', new_user_session_path  %></li>
 				<% end %>	
 			</ul>	
+			<%= form_tag products_path, method: :get do %>
+				<%= submit_tag "Пошук", name: nil %>
+				<%= text_field_tag :search, params[:search] %>
+			<% end %>
 		</div>
-
-		<div class="account">
-			<div class="account-container">
-				<div id="cart">
-					<% if session[:cart_id] %>
-					<%= link_to "Корзина(#{Cart.find(session[:cart_id]).total_count})", carts_path %>
-					<% end %>
-				</div>
-				<% if user_signed_in? %>
-					<span>Ви ввійшли як <%= link_to current_user.login, edit_user_registration_path %></span>
-				<% else %>
-					<%= link_to 'Вхід', new_user_session_path  %> | <%= link_to 'Реєстрація', new_user_registration_path %>
-				<% end %>	
-			</div>
-		</div>
-	</div>
-	<div class="header-category">
-		<div class="category-container">
-			<ul class="category-list">
-				<% @categories.each do |category| %>
-				<li>
-					<%= link_to category.name, category %>
-					<% if category.children.exists? %>
-					<ul class="drop-down">
-						<% category.children.each do |nested_category| %>
-						<li><%= link_to nested_category.name, nested_category %></li>
-						<% end %>
-					</ul>
-					<% end %>
-				</li>
-				<% end %>
-			</ul>	
-		</div>
-	</div>
-</header>
+	</header>

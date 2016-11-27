@@ -16,4 +16,13 @@
 //= require jquery.remotipart
 //= require turbolinks
 
- 
+$(window).scroll(function() {
+	if( window.scrollY < 40 ) {
+		$(".sidebar").css('padding-top', '60px');
+	}else {
+		$(".sidebar").css('padding-top', '20px');
+	}	
+});
+
+if($('.admin-bar-base')) $('.main-block ').css('margin', '20px auto');
+

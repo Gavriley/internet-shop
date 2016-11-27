@@ -6,31 +6,41 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Role.create([{ name: 'admin', title: 'Адміністратор' }, { name: 'manager', title: 'Менеджер' }, { name: 'client', title: 'Клієнт' }, { name: 'guest', title: 'Гість' }])
+User.create(login: 'Kasumi', email: 'gavrileypetro@gmail.com', password: 'qwerty', name: 'Kami')
 
-category = Category.create(name: "Ноутбуки", parent_id: 0)
-category = Category.create(name: "Компютери", parent_id: 0)
-category = Category.create(name: "Комплектуючі", parent_id: 0)
-category = Category.create(name: "Планшети", parent_id: 0)
-category = Category.create(name: "Оргтехніка", parent_id: 0)
-category = Category.create(name: "Програмне забеспечення", parent_id: 0)
+# Role.create([{ name: 'admin', title: 'Адміністратор' }, { name: 'manager', title: 'Менеджер' }, { name: 'client', title: 'Клієнт' }, { name: 'guest', title: 'Гість' }])
 
-Category.create([
-		{ name: "Asus", parent_id: 1 },
-		{ name: "Acer", parent_id: 1 },
-		{ name: "HP (Hewlett Packard)", parent_id: 1 },
-		{ name: "Lenovo", parent_id: 1 },
-		{ name: "Dell", parent_id: 1 },
-		{ name: "Apple", parent_id: 1 }
-	])
+# category = Category.create(name: "Ноутбуки", parent_id: 0)
+# category = Category.create(name: "Компютери", parent_id: 0)
+# category = Category.create(name: "Комплектуючі", parent_id: 0)
+# category = Category.create(name: "Планшети", parent_id: 0)
+# category = Category.create(name: "Оргтехніка", parent_id: 0)
+# category = Category.create(name: "Програмне забеспечення", parent_id: 0)
+
+# Category.create([
+# 		{ name: "Asus", parent_id: 1 },
+# 		{ name: "Acer", parent_id: 1 },
+# 		{ name: "HP (Hewlett Packard)", parent_id: 1 },
+# 		{ name: "Lenovo", parent_id: 1 },
+# 		{ name: "Dell", parent_id: 1 },
+# 		{ name: "Apple", parent_id: 1 }
+# 	])
 
 
 
-Category.create([
-		{ name: "Неттопи і моноблоки", parent_id: 2 },
-		{ name: "Сервери", parent_id: 2 },
-		{ name: "Монитори", parent_id: 2 },
-		{ name: "Клавиатуры и мыши", parent_id: 2 },
-		{ name: "Акустика", parent_id: 2 }
-	])
+# Category.create([
+# 		{ name: "Неттопи і моноблоки", parent_id: 2 },
+# 		{ name: "Сервери", parent_id: 2 },
+# 		{ name: "Монитори", parent_id: 2 },
+# 		{ name: "Клавиатуры и мыши", parent_id: 2 },
+# 		{ name: "Акустика", parent_id: 2 }
+# 	])
 
+
+
+30.times { Product.create(
+	title: 'Lorem ipsum dolor', 
+	description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat rerum necessitatibus, est sit qui! Deserunt, voluptatibus eum aut consectetur tempore minus quia nobis autem sit praesentium dolorum facilis, magnam fugiat! Quia deserunt pariatur consequatur ipsum recusandae soluta delectus aperiam',
+	user: User.find(1),
+	price: 16000
+) }

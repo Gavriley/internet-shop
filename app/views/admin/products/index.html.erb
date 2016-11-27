@@ -33,7 +33,11 @@
 </div>
 
 <div class="main-right-block">
-	<div class="right-block"></div>
-	<div class="right-block"></div>
+	<div class="right-block">
+		<%= form_tag admin_products_path, :method => :get, class: 'search-block' do %>
+		  <%= text_field_tag :search, params[:search], class: 'form-control' %>
+		  <%= submit_tag "Пошук", :name => nil, class: 'btn btn-success' %>
+		<% end %>
+	</div>
 </div>
 

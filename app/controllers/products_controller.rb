@@ -1,10 +1,21 @@
 class ProductsController < ApplicationController
+	include ApplicationHelper
+
 	before_action :set_product, only: [:show, :edit, :update, :destroy]
 	skip_before_filter :verify_authenticity_token
 
 	def index
 		@title = "Головна"
-		@products = Product.includes([:categories, :user]).latest             
+
+		@products = Product.includes([:categories, :user]).latest
+
+		# @search = Product.search do
+		# 	 fulltext params
+		# end
+
+		# @products = @search.results   
+
+		# @products = Product.search('lorem').records
 	end
 	
 	def show
@@ -51,6 +62,26 @@ class ProductsController < ApplicationController
 
 	def destroy
 		
+	end	
+
+	def valid_thumbnail
+		@product = Product.new(thumbnail: params[:thumbnail])
+
+		@product.valid?
+
+		@product.errors.delete(:title) if @product.errors.has_key?(:title)
+		@product.errors.delete(:user) if @product.errors.has_key?(:user)
+		@product.errors.delete(:description) if @product.errors.has_key?(:description)
+		@product.errors.delete(:price) if @product.errors.has_key?(:price)
+
+		# File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << @product.thumbnail }
+		respond_to do |format|
+			if @product.errors.any?
+				format.json { render :create, json: { errors: get_error_messages(@product) }, status: :unprocessable_entity }
+			else
+				format.json { render :create, json: nil, status: :ok }
+			end	
+		end	
 	end	
 
 	private

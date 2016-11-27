@@ -66,10 +66,35 @@ body#admin_panel {
 		border: 2px solid #7f0301;
 		border-radius: 15px;
 		background: #ffdbb2;
-		height: 400px;
+		padding: 20px;
 		margin-bottom: 30px; 
+		
+		.search-block {
+			height: 35px;
+		}
 	}
 }	
+
+.search-block {
+
+	input[type=text] {
+		background-color: #ff9833;
+		border: 1px solid #7f0301;
+		color: #fff;
+		float: left;	
+	}
+
+	input[type=submit] {
+		color: #ffdbb2;
+		float: right;	
+		background-color: #7f0301;
+		border: 1px solid #000;
+	}
+
+	.form-control {
+		width: 70%;
+	}			
+}
 
 .left-side {
 

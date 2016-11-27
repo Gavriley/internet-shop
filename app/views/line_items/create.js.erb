@@ -1,5 +1,13 @@
+<%
+	if session[:cart_id]
+		@cart_count = Cart.find(session[:cart_id]).total_count
+		@cart_price = Cart.find(session[:cart_id]).total_price
+	end	
+%>
+
 if($("#notice")) $("#notice").remove();
 
-$('#cart').html('<%= "<a href=#{carts_path}>Корзина(#{Cart.find(session[:cart_id]).total_count})</a><br>".html_safe %>');
-
-$('#cart a').css({'color':'#eee'}).animate({'color':'#337ab7'}, 1000)
+$('#cart')
+	.html('<%= @cart_count %>шт. -  <%= number_to_currency(@cart_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %>')
+	.css({'color':'#efefef'})
+	.animate({'color':'#000'}, 1000);

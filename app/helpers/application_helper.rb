@@ -17,8 +17,13 @@ module ApplicationHelper
 
 	def get_error_messages object
 		return "" if object.errors.empty?
-		messages = object.errors.messages.map { |key, msg| content_tag(:li, msg.first) }.join
+		messages = object.errors.messages.map { |key, msg| "<li>#{msg.first}</li>" }.join
     "<div class='error-messages'><h4>Виправте #{plural_form(object.errors.count, ['помилку', 'помилки', 'помилок'])}: </h4><ul>#{messages}</ul></div>".html_safe
+	end	
+
+	def get_notice
+		return "" if notice.nil?
+		"<div id=notice>#{notice}</div>".html_safe
 	end	
 
 	def get_orders_unverified_count

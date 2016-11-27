@@ -1,5 +1,9 @@
 function readURL(input) {
-
+  $("#info_block").html('');  
+  $("#clear").css("display","block");
+  $("#raper_file").css("display","none");
+  if($("#drop_file")) $("#drop_file").remove();  
+    
   if (input.files && input.files[0]) {
     var reader =  new FileReader();
 
@@ -13,11 +17,29 @@ function readURL(input) {
 }
 
 $(document).ready(function() {  
-	$("#file").change(function() {
-	  $("#clear").css("display","block");
-	  $("#raper_file").css("display","none");
-	  if($("#drop_file")) $("#drop_file").remove();
-	  readURL(this);
+	$("#file").change(function() { 
+       // console.log(this.files[0]);  
+      var data = new FormData(); 
+	  var file = this;
+
+      data.append('thumbnail', file.files[0]);
+
+      $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: data,
+        url: '/products/valid_thumbnail',
+        mimeType: "multipart/form-data",
+        contentType: false,
+        processData: false,
+        success: function(result) {
+          readURL(file);  
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+          $("#info_block").html(jQuery.parseJSON(jqXHR.responseText)['errors']);  
+          $("#file").val("");
+        }
+      });
 	});
 
 	$("#clear").click(function (e) {

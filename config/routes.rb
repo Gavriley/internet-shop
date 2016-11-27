@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :products do
+    post 'valid_thumbnail', to: 'products#valid_thumbnail', as: 'valid_thumbnail', on: :collection
     resources :comments, only: [:create, :update, :destroy]
   end  
 

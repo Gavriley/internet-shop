@@ -1,4 +1,7 @@
 class Product < ActiveRecord::Base
+	# include Elasticsearch::Model
+ #  include Elasticsearch::Model::Callbacks
+
 	has_attached_file :thumbnail, styles: { large: "300x300>", medium: "200x200>", small: "150x150>" }
 	
 	before_destroy :check_product_in_cart
@@ -21,6 +24,14 @@ class Product < ActiveRecord::Base
 	scope :latest, -> { where(published: true).order(created_at: :desc) }
 
 	after_validation :clean_thumbnail_errors
+
+	# searchable do	
+	# 	text :title
+	# end
+
+	def validate_thumbnail?
+	  errors[:thumbnail].blank?
+	end
 
 	private
 		def check_product_in_cart

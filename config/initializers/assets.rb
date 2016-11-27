@@ -11,6 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile += %w( file.js )
+Rails.application.config.assets.precompile += %w( menu.js )
 Rails.application.config.assets.precompile += %w( order_modal.js )
 
 Rails.application.config.assets.precompile += %w( main.css )

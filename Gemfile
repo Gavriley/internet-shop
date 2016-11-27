@@ -50,6 +50,13 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'database_cleaner'
+  gem 'capybara'
+end 
+
+# gem 'tire'
+
 gem 'aasm'
 gem 'figaro'
 gem 'kaminari'
@@ -57,12 +64,20 @@ gem 'bootstrap-sass'
 gem 'cancancan'
 gem 'devise'
 gem 'jquery-ui-rails'
-gem 'paperclip', '~> 5.0.0'
-gem 'paperclip-i18n'
 gem 'remotipart', '~> 1.2'
 gem 'liqpay', github: 'liqpay/sdk-ruby'
 
-group :test do
-	gem 'database_cleaner'
-  gem 'capybara'
-end	
+gem 'paperclip', '~> 5.0.0'
+gem 'paperclip-i18n'
+
+# gem 'elasticsearch-model'
+# gem 'elasticsearch-rails'
+
+# gem 'sunspot_rails'
+# # gem 'sunspot_solr'
+
+# group :development do
+#   gem 'sunspot_solr'
+# end
+
+# gem 'progress_bar'
