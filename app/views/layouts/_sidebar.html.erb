@@ -1,7 +1,9 @@
 	<div class="sidebar">
 		<div class="cart-block">
 			<div class="cart"> 
-				<%= image_tag('shopping-bag') %> 
+				<%= link_to carts_path do %>
+				<%= image_tag('shopping-bag') %>
+				<% end %> 
 				<span id="cart"> 
 					<%= @cart_count %>шт. -  <%= number_to_currency(@cart_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %>
 				</span>

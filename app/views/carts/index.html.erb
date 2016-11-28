@@ -1,42 +1,50 @@
-<div class="cart-content">
-	<h1>Корзина</h1><hr>
-	<table>
-		<tr>
-			<th>Мініатюра</th>
-			<th>Назва</th>
-			<th>Ціна</th>
-			<th>Кількість</th>
-		</tr>
-		
-		<%= render @cart.line_items %>
-		
-		<tr>
-			<td id="total_price" colspan="5">
-				Загальна ціна: <%= number_to_currency(@cart.total_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %>
-			</td>
-		</tr>
-	</table>
-	<div class="make-order"><%= link_to "Оформити заказ", "", class: 'btn btn-default', id: 'push_order' %></div>
-	<div id="order_block">
-		<div class="modal-content" id="modal_content">
-			<h1>Оформлення заказу</h1>		
-			<%= form_for @order, html: { method: :post }, remote: true do |f| %>
-			<div id="info_block"></div>
-			<div class="form-group">
-	      <%= f.email_field :email, class: 'form-control', placeholder: "Введіть e-mail", value: current_user.try(:email) %>
-	    </div>
-
-	    <div class="form-group">
-	      <%= f.text_field :name, class: 'form-control', placeholder: "Введіть імя", value: current_user.try(:name) %>
-	    </div>
-
-	    <div class="form-group">
-	      <%= f.text_field :address, class: 'form-control', placeholder: "Введіть адресу" %>
-	    </div>
-
-	    <a href="" id="close" class="btn btn-default">Закрити</a>
-	    <%= f.submit "Оформити заказ", class: 'btn btn-default' %>
-			<% end %>
+<div class="main-block">
+	<div class="cart-block">
+		<h1>Корзина</h1><hr>
+		<table>
+			<tr>
+				<th width="15%">Мініатюра</th>
+				<th width="35%">Назва</th>
+				<th width="20%">Ціна</th>
+				<th width="15%">Кількість</th>
+				<th width="15%"></th>
+			</tr>
+			
+			<%= render @cart.line_items %>
+			
+			<tr>
+				<td id="total_price" colspan="5">
+					Загальна ціна: <%= number_to_currency(@cart.total_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %>
+				</td>
+			</tr>
+		</table>
+		<div class="make-order">
+			<%= link_to "Повернутися до товарів", products_path, class: 'btn btn-default' %>
+			<%= link_to "Оформити заказ", "", class: 'btn btn-default', id: 'push_order' %>
 		</div>
+
+		<div id="order_block">
+			<div id="modal_content">
+				<h1>Оформлення заказу</h1>		
+				<%= form_for @order, html: { method: :post }, remote: true do |f| %>
+				<div id="info_block"></div>
+				<div class="form-group">
+		      <%= f.email_field :email, class: 'form-control', placeholder: "Введіть e-mail", value: current_user.try(:email) %>
+		    </div>
+
+		    <div class="form-group">
+		      <%= f.text_field :name, class: 'form-control', placeholder: "Введіть імя", value: current_user.try(:name) %>
+		    </div>
+
+		    <div class="form-group">
+		      <%= f.text_field :address, class: 'form-control', placeholder: "Введіть адресу" %>
+		    </div>
+
+		    <a href="" id="close" class="btn btn-default">Закрити</a>
+		    <%= f.submit "Оформити заказ", class: 'btn btn-default' %>
+				<% end %>
+			</div>
+		</div>
+
 	</div>
 </div>

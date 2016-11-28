@@ -9,7 +9,9 @@ class OrdersController < ApplicationController
 
 	def show
 		raise ActiveRecord::RecordNotFound if !@order.process?
-		@liqpay = Liqpay::Liqpay.new.cnb_form({ action: "pay", sandbox: 1, amount: 0.01, currency: "UAH", description: "Заказ №#{@order.id}", order_id: "order_number_is_#{@order.id}", version: "3", server_url: state_orders_url }).html_safe
+
+		@liqpay = create_liqpay 
+		@paypal = create_paypal	
 	end	
 
 	def create 
@@ -26,12 +28,24 @@ class OrdersController < ApplicationController
 		end
 	end	
 
-	def state
+	def liqpay_response
 		order_json_params = JSON.parse(Base64.decode64(params["data"]))
 		@order = Order.find(order_json_params["order_id"].delete("order_number_is_"))
 		@order.last_error = order_json_params['err_description'] if order_json_params['err_description']
 		@order.try(order_json_params["status"] + "!") if @order.try("may_#{order_json_params["status"]}?")
-		File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << order_json_params }
+		# File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << order_json_params }
+	end	
+
+	def paypal_response 
+		params.permit!
+		@order = Order.find(params[:invoice])
+
+		case params[:payment_status] 
+			when 'Completed'
+				@order.sandbox!
+			else 
+				@order.failure!
+			end		
 	end	
 
 	private
@@ -54,13 +68,39 @@ class OrdersController < ApplicationController
 			@order = Order.includes(line_items: :product).find(params[:id])
 		end	
 
-		# def make_current_order
-		# 	goods = @order.line_items.map { |line_item| { amount: line_item.product.price, count: line_item.count, unit: 'шт.', name: line_item.product.title } }
+		def create_liqpay
+			liqpay_params = { 
+				action: "pay", 
+				sandbox: 1, 
+				amount: 0.01, 
+				currency: "UAH", 
+				description: "Заказ №#{@order.id}", 
+				order_id: "order_number_is_#{@order.id}", 
+				version: "3", 
+				server_url: liqpay_response_orders_url 
+			}
 
-		# 	begin
-		# 		Liqpay.new.api 'invoice/send', { email: @order.email, amount: 0.01, currency: 'UAH', order_id: @order.id, goods: goods, server_url: state_orders_url }
-		# 	rescue StandardError
-		# 		make_current_order
-		# 	end	     
-		# end	
+			return Liqpay::Liqpay.new.cnb_form(liqpay_params).html_safe
+		end	
+
+		def create_paypal
+			values = {
+		    :business => 'gavrileypetro-facilitator@gmail.com',
+		    :cmd => '_cart',
+		    :upload => 1,
+		    :notify_url => paypal_response_orders_url,
+		    :invoice => @order.id
+		  }
+
+		  @order.line_items.each_with_index do |item, index|
+		    values.merge!({
+		      "amount_#{index+1}" => item.product.price,
+		      "item_name_#{index+1}" => item.product.title,
+		      "item_number_#{index+1}" => item.id,
+		      "quantity_#{index+1}" => item.count
+		    })
+		  end
+
+		  return "https://www.sandbox.paypal.com/cgi-bin/webscr?" + values.to_query
+		end	
 end	

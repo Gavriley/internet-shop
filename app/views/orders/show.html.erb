@@ -1,29 +1,32 @@
-<div class="order-content">
-	<h1><%= "Заказ №#{@order.id}" %></h1>
-	<hr>
-	<table class="table">
-		<thead>
-      <tr>
-				<th width="35%">Назва товару</th>
-				<th>Кількість</th>
-				<th>Ціна за од.</th>
-				<th>Сума, UAH</th>
-      </tr>
-    </thead>
-    <tbody>
-    	<% @order.line_items.each do |item| %>
-    	<tr>
-    		<td><%= item.product.title %></td>
-    		<td><%= item.count %></td>
-    		<td><%= number_to_currency(item.product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></td>
-    		<td><%= number_to_currency(item.total_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></td></td>
-    	</tr>
-    	<% end %>
-    </tbody>	  
-	</table>
-	<hr>
-	<h2><%= "Загальна сума: #{@order.amount}" %></h2>
-	<div class="liqpay">
-		<%= @liqpay %>
+<div class="main-block">	
+	<div class="order-content">
+		<h1><%= "Заказ №#{@order.id}" %></h1>
+		<hr>
+		<table class="table">
+			<thead>
+	      <tr>
+					<th width="35%">Назва товару</th>
+					<th>Кількість</th>
+					<th>Ціна за од.</th>
+					<th>Сума, UAH</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	<% @order.line_items.each do |item| %>
+	    	<tr>
+	    		<td><%= item.product.title %></td>
+	    		<td><%= item.count %></td>
+	    		<td><%= number_to_currency(item.product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></td>
+	    		<td><%= number_to_currency(item.total_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></td></td>
+	    	</tr>
+	    	<% end %>
+	    </tbody>	  
+		</table>
+		<hr>
+		<div class="total-price"><span><%= "Загальна сума: #{@order.amount}" %></span></div> 
+		<div class="pay-block">
+			<%= @liqpay %>
+			<%= link_to "PayPal", @paypal %>
+		</div>
 	</div>
-</div>
+</div>	

@@ -70,6 +70,8 @@ gem 'liqpay', github: 'liqpay/sdk-ruby'
 gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-i18n'
 
+gem 'paypal-sdk-rest'
+
 # gem 'elasticsearch-model'
 # gem 'elasticsearch-rails'
 

@@ -35,4 +35,14 @@ module ApplicationHelper
 			return "<span class='order-counter'>#{@orders_count}</span>".html_safe
 		end	
 	end
+
+	def set_cart_params
+		if session[:cart_id]
+			@cart_count = Cart.find(session[:cart_id]).total_count
+			@cart_price = Cart.find(session[:cart_id]).total_price
+		else
+			@cart_count = 0
+			@cart_price = 0.00
+		end	
+	end	
 end

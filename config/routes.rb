@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   resources :carts, only: :index
   
   resources :orders do
-    post 'state', to: 'orders#state', as: 'state', on: :collection
+    post 'liqpay_response', to: 'orders#liqpay_response', as: 'liqpay_response', on: :collection
+    post 'paypal_response', to: 'orders#paypal_response', as: 'paypal_response', on: :collection
   end  
 
   root "products#index"

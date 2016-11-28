@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
 	before_action :set_cart, only: [:destroy]
+	rescue_from ActiveRecord::RecordNotFound, with: -> { redirect_to root_path }
 
 	def index
 		@title = "Корзина"

@@ -23,7 +23,8 @@ blockquote:before, blockquote:after,
 q:before, q:after{content:''; content:none}
 table{border-collapse:collapse; border-spacing:0}
 a{cursor: pointer}
-a:hover, a:focus, a:visited{text-decoration: none}
+a:hover, a:focus, a:visited{text-decoration: none; color: #667ab7}
+a:hover {color: #002186}
 
 i {
 	font-style: italic;

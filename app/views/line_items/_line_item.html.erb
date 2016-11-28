@@ -4,12 +4,12 @@
     <%= image_tag line_item.product.thumbnail.url(:small) %>
     <% end %>
   </td>
-  <td><span><%= line_item.product.title %></span></td>
+  <td><%= link_to line_item.product.title, line_item.product, target: "_blank" %></span></td>
   <td><%= number_to_currency(line_item.product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></td>
   <td>
-    <%= link_to '◀', count_down_line_item_path(line_item), method: :patch, remote: true %>
+    <%= link_to '◀', count_down_line_item_path(line_item), method: :patch, remote: true, class: 'arrow' %>
     <span id="product_count_<%= line_item.id %>"><%= line_item.count %></span> 
-    <%= link_to '▶', count_up_line_item_path(line_item), method: :patch, remote: true %>
+    <%= link_to '▶', count_up_line_item_path(line_item), method: :patch, remote: true, class: 'arrow' %>
   </td>
   <td><%= link_to 'Видалити', line_item, method: :delete, remote: true %></td>
 </tr>
