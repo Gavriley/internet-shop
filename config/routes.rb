@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :orders do
     post 'liqpay_response', to: 'orders#liqpay_response', as: 'liqpay_response', on: :collection
     post 'paypal_response', to: 'orders#paypal_response', as: 'paypal_response', on: :collection
+    post 'create_stripe', to: 'orders#create_stripe', as: 'create_stripe', on: :member
   end  
 
   root "products#index"

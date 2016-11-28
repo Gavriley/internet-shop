@@ -34,6 +34,7 @@ class LineItemsController < ApplicationController
 		respond_to do |format|
 			if @line_item.save
 				format.js
+				format.html { redirect_to products_path }
 			end	
 		end	
 	end	

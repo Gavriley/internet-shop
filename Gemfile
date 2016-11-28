@@ -58,6 +58,7 @@ end
 # gem 'tire'
 
 gem 'aasm'
+gem 'stripe'
 gem 'figaro'
 gem 'kaminari'
 gem 'bootstrap-sass'

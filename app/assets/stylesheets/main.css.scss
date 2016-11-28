@@ -131,6 +131,10 @@ body.general-block {
 		th:first-child, td:first-child {
 			text-align: left;
 		}
+
+		tr:last-child {
+			border-bottom: 1px solid #eee;
+		}
 		
 		.total-price {
 			font-size: 17px;
@@ -138,7 +142,14 @@ body.general-block {
 		}
 		
 		.pay-block {
-			text-align: center;
+			width: 60%;
+			height: 60px;
+			margin: auto;
+
+			li {
+				margin: 0px 10px;
+				float: left;
+			}
 		}
 
 		span {

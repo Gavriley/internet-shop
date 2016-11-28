@@ -4,6 +4,9 @@
 	<p>Імя замовника: <%= @order.name %></p>
 	<p>Email замовника: <%= @order.email %></p>
 	<p>Адреса замовника: <%= @order.address %></p>
+	<% if @order.pay_with.present? %>
+		<p>Оплачено за допомогою: <%= @order.pay_with %></p>
+	<% end %>
 	<p>Загальна сума замовлення: <%= number_to_currency(@order.amount, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></p>
 	<p>Статус: <span class="<%= @order.aasm.current_state %>"><%= get_ukr_order_state(@order.aasm.current_state.to_s) %></span></p>
 	<p>
