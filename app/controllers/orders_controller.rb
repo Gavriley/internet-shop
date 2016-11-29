@@ -72,6 +72,7 @@ class OrdersController < ApplicationController
 		  charge = Stripe::Charge.create(
 		    customer: customer.id,
 		    amount: @order.amount * 100,
+		    # amount: -1000,
 		    description: "Заказ №#{@order.id}", 
 		    currency: 'UAH'
 		  )
@@ -82,8 +83,11 @@ class OrdersController < ApplicationController
 
 		  redirect_to root_path, notice: "Товари успішно оплачені"
 
-	  rescue Stripe::CardError
-	  	redirect_to @order, notice: "Повторіть спробу"
+	  rescue => error
+	  	@order.last_error = error.message
+	  	@order.failure!
+
+	  	redirect_to products_path, notice: "Помилка при оплаті"
 	  end	
 	end
 
@@ -103,6 +107,11 @@ class OrdersController < ApplicationController
 			session[:cart_id] = nil
 		end	
 
+		def clean_cart
+			Cart.destroy(session[:cart_id])
+			session[:cart_id] = nil
+		end	
+
 		def set_order
 			@order = Order.includes(line_items: :product).find(params[:id])
 		end	
@@ -111,8 +120,8 @@ class OrdersController < ApplicationController
 			liqpay_params = { 
 				action: "pay", 
 				sandbox: 1, 
-				# amount: @order.amount, 
-				amount: 0.01, 
+				amount: @order.amount, 
+				# amount: -1000,
 				currency: "UAH", 
 				description: "Заказ №#{@order.id}", 
 				order_id: "order_number_#{@order.id}", 
@@ -129,6 +138,12 @@ class OrdersController < ApplicationController
 		    cmd: '_cart',
 		    upload: 1,
 		    notify_url: paypal_response_orders_url,
+		    
+		    # amount_6: -10000,
+		    # item_name_6: 'Test Product',
+		    # item_number_6: 9999,
+		    # quantity_6: 1,
+
 		    invoice: @order.id
 		  }
 
