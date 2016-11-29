@@ -2,18 +2,24 @@ class ProductsController < ApplicationController
 	include ApplicationHelper
 
 	before_action :set_product, only: [:show, :edit, :update, :destroy]
+	
 	skip_before_filter :verify_authenticity_token
 
 	def index
 		@title = "Головна"
 
-		@products = Product.includes([:categories, :user]).latest
+		# @products = Product.includes([:categories, :user]).latest
 
-		# @search = Product.search do
-		# 	 fulltext params
-		# end
+		@search = Product.search do
+			fulltext params[:search]
 
-		# @products = @search.results   
+			paginate page: 1, per_page: 40
+			order_by :id, :desc
+		end
+
+		@products = @search.results   
+
+		File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << "#{@search.total}"    }
 
 		# @products = Product.search('lorem').records
 	end

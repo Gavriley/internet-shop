@@ -25,9 +25,12 @@ class Product < ActiveRecord::Base
 
 	after_validation :clean_thumbnail_errors
 
-	# searchable do	
-	# 	text :title
-	# end
+	searchable do	
+		text :title, boost: 5 
+		text :description
+
+		integer :id
+	end
 
 	def validate_thumbnail?
 	  errors[:thumbnail].blank?

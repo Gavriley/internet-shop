@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
 
 	def show
 		raise ActiveRecord::RecordNotFound if !@order.process?
-		File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << Rails.application.secrets.stripe_publishable_key }
+		
 		@liqpay = create_liqpay 
 		@paypal = create_paypal	
 	end	

@@ -10,7 +10,7 @@
 				<li><%= link_to 'Вхід', new_user_session_path  %></li>
 				<% end %>	
 			</ul>	
-			<%= form_tag products_path, method: :get do %>
+			<%= form_tag products_path, method: :get, enforce_utf8: false do %>
 				<%= submit_tag "Пошук", name: nil %>
 				<%= text_field_tag :search, params[:search] %>
 			<% end %>

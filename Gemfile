@@ -58,6 +58,7 @@ end
 # gem 'tire'
 
 gem 'aasm'
+gem 'progress_bar'
 gem 'stripe'
 gem 'figaro'
 gem 'kaminari'
@@ -72,6 +73,9 @@ gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-i18n'
 
 gem 'paypal-sdk-rest'
+
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 # gem 'elasticsearch-model'
 # gem 'elasticsearch-rails'
