@@ -25,4 +25,3 @@ $(window).scroll(function() {
 });
 
 if($('.admin-bar-base')) $('.main-block ').css('margin', '20px auto');
-

@@ -1,0 +1,88 @@
+/*****************! (19.09.2016) !*****************/
+
+Front-end:
+	+ календар вибрати дату публікації посту
+	+ галерея
+
+Ruby On Rails 
+	+ не використовувати scaffold
+	+ звязки між категоріями 
+	+ геми для загрузки зображень
+	+ добавити до divise поле login
+	+ пагінація
+	+ пошук
+
+/*****************! Next Task(17.10.2016) !*****************/
+
+Front-end:
+	+ модальні вікна для галереї
+	+ респонс на галереї
+	+ CSS media queries
+	+ найти шаблони для блога 
+
+Back-end:
+	+ N+1 query(і вирішити проблему в блогах)
+	+ настроїти відсилання підтвердження e-mail(gmail smtp)
+	+ CanCanCan gem і застосувати його для редагування блогів і статті 
+	+ добавити адміністратора
+	+ натягнути шаблон	
+	+ можливість створювати персональний блог	
+
+/*****************! Next Task(31.10.2016) !*****************/		
+
+Back-end:
+	+ eagerloading
+	+ enviroment
+	+ internet shop (LIQ pay) sandbox = 1
+	+ NGROK
+	+ StateMachine
+	
+Test:
+	+ unit testing controllers and models Rspec(FactoryGirl, Faker, Database Cleaner)
+	
+
+/*****************! Next Task(21.11.2016) !*****************/
+
+Base task: 
+	+ "Full text search" Solr or Elestic Search
+	+ PayPal 
+	+ Stripe	
+	+ настроїти AASM 
+		+ Записати помилку
+		+ Використати Guard
+		+ Затестувати Order	
+
+Additional task:
+	+ Скролл на меню 
+	+ Видалення і зміна кількості товарів
+	+ Автовалідація зображення	
+
+Materials:
+	test cart stripe: 4242424242424242	
+
+	pay pal test acount:
+		email: gavrileypetroinsilico@gmail.com
+		pass: testpaypal
+
+/*****************! Next Task(01.12.2016) !*****************/
+
+email: oleh.demyanyuk@gmail.com
+
+Development:
+	+ Ajax Search
+	+ Email Callback(to admin and to client)
+	+ Check Reindex(create and destroy data) 
+	+ Log for payment
+	Selenium
+	
+	Gem SideKiq
+	Gem Timecop
+	Gem RuboCop
+	Gem Breakmen
+	Gem SimpleCow	
+
+Rspec:
+	Before After	
+
+Read:
+	Capybara drivers Selenium

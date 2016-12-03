@@ -15,6 +15,7 @@
 	<%= yield %>
 
 	<%= javascript_include_tag 'menu' %>
+	<%= javascript_include_tag 'header' %>
 	<%= javascript_include_tag 'file' if controller_name == "products" && (action_name == "new" || action_name == "edit") %>
 	<%= javascript_include_tag 'order_modal' if controller_name == "carts" %>
 </body>

@@ -1,8 +1,8 @@
-var category_list = document.getElementById('category_list');
+// var category_list = document.getElementById('category_list');
 var active_li = null; 
 var active_ul = null;
 
-category_list.onclick = function(event) {
+$('#category_list').click(function(event) {
 	var li = event.target;
 
 	if(li.id != 'float_category') return false;
@@ -25,6 +25,8 @@ category_list.onclick = function(event) {
 			active_li = li;
 
 			active_ul.style.display = "block";
+			// active_ul.animate({'display': 'block'});
+
 			active_li.innerHTML = '[-]';
 		}else {
 			active_ul.style.display = "";
@@ -37,4 +39,4 @@ category_list.onclick = function(event) {
 			active_li.innerHTML = '[-]';
 		}
 	}
-}
+});

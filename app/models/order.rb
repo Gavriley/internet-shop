@@ -15,6 +15,10 @@ class Order < ActiveRecord::Base
 	validates :name, presence: { message: "Заповніть поле імя" }, length: { maximum: 50, message: "Імя може містити максимум 50 символів" }
 	validates :address, presence: { message: "Заповніть поле адреса" }, length: { maximum: 255, message: "Адреса може містити максимум 255 символів" }
 
+	def self.pay_logger
+		@@pay_logger ||= Logger.new("#{Rails.root}/log/pay.log")
+	end	
+
 	def add_line_items_from_cart(cart)
 		cart.line_items.each do |line_item|
 			line_item.cart_id = nil
@@ -48,15 +52,15 @@ class Order < ActiveRecord::Base
 
 		after_all_transitions :set_on_unverified
 
-		event :process do
+		event :process, after: -> { PaymentMailer.send_payment(self).deliver_now } do
 			transitions from: :pending, to: :process, guard: [:has_line_items?, :has_correct_amount_price?]
 		end	
 		
-		event :sandbox do
+		event :sandbox, after: -> { PaymentMailer.send_success_message(self).deliver_now } do
 			transitions from: :process, to: :sandbox
 		end	
 
-		event :failure do
+		event :failure, after: -> { PaymentMailer.send_error_message(self).deliver_now } do
 			transitions from: :process, to: :failure
 		end	
 	end	

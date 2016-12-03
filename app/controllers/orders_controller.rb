@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
 	before_action :set_order, only: [:show, :create_stripe]
 
 	def show
+
 		raise ActiveRecord::RecordNotFound if !@order.process?
 		
 		@liqpay = create_liqpay 
@@ -41,8 +42,10 @@ class OrdersController < ApplicationController
 		case order_json_params["status"]
 			when 'sandbox'
 				@order.sandbox!
+				Order.pay_logger.info("Заказ №#{@order.id} успішно оплачений")
 			else 
 				@order.failure!
+				Order.pay_logger.error("В оплаті заказу №#{@order.id} сталася помилка #{@order.get_last_error}")
 			end		
 
 		# @order.try(order_json_params["status"] + "!") if @order.try("may_#{order_json_params["status"]}?")
@@ -57,8 +60,10 @@ class OrdersController < ApplicationController
 		case params[:payment_status] 
 			when 'Completed'
 				@order.sandbox!
-			else 
+				Order.pay_logger.info("Заказ №#{@order.id} успішно оплачений")
+			else
 				@order.failure!
+				Order.pay_logger.error("В оплаті заказу №#{@order.id} сталася помилка")
 			end		
 	end	
 
@@ -71,8 +76,8 @@ class OrdersController < ApplicationController
 
 		  charge = Stripe::Charge.create(
 		    customer: customer.id,
-		    amount: @order.amount * 100,
-		    # amount: -1000,
+		    # amount: @order.amount * 100,
+		    amount: -1000,
 		    description: "Заказ №#{@order.id}", 
 		    currency: 'UAH'
 		  )
@@ -81,12 +86,16 @@ class OrdersController < ApplicationController
 
 		  @order.sandbox!
 
+		  Order.pay_logger.info("Заказ №#{@order.id} успішно оплачений")
+
 		  redirect_to root_path, notice: "Товари успішно оплачені"
 
 	  rescue => error
 	  	@order.last_error = error.message
 	  	@order.failure!
 
+	  	Order.pay_logger.error("В оплаті заказу №#{@order.id} сталася помилка #{@order.get_last_error}")
+	  	
 	  	redirect_to products_path, notice: "Помилка при оплаті"
 	  end	
 	end
@@ -105,6 +114,8 @@ class OrdersController < ApplicationController
 
 			Cart.destroy(session[:cart_id])
 			session[:cart_id] = nil
+
+			Order.pay_logger.info("Новий заказ №#{@order.id} находиться в очікуванні")
 		end	
 
 		def clean_cart

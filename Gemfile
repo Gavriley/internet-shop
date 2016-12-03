@@ -77,6 +77,8 @@ gem 'paypal-sdk-rest'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
+gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
+
 # gem 'elasticsearch-model'
 # gem 'elasticsearch-rails'
 

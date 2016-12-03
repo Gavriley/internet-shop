@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :products do
     post 'valid_thumbnail', to: 'products#valid_thumbnail', as: 'valid_thumbnail', on: :collection
+    post 'search', to: 'products#search', as: 'search', on: :collection
     resources :comments, only: [:create, :update, :destroy]
   end  
 

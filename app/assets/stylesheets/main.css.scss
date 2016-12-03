@@ -348,10 +348,10 @@ body.general-block {
 				padding: 11px 20px;
 			}
 
-			a:hover {
+			/*a:hover {
 				color: #01a161;
 				background-color: #dcdbdb;
-			}
+			}*/
 		}
 
 		input {
@@ -364,7 +364,7 @@ body.general-block {
 
 		input[type=text] {
 			width: 200px;
-			border-radius: 10px;
+			border-radius: 7px;
 		}
 
 		input[type=text]:focus {
@@ -382,6 +382,50 @@ body.general-block {
 
 		input[type=submit]:hover {
 			background-color: #869cb7;
+		}
+
+		.search-results {
+			display: none;
+			top: 33px;
+			right: 157px;
+			position: absolute;
+			width: 302px;
+			background: #fff;
+			border: 1px solid #000;
+			border-radius: 0px 0px 15px 15px;
+			border-top: none;
+			padding-bottom: 12px;
+			z-index: 2;
+			
+			li {
+				width: 100%;
+				border-top: 1px dashed #416ea7;
+			}
+			
+			li:hover {
+				background-color: #81b4ce;
+				border-top: 1px solid #fff;
+			}
+
+			li:hover + li {
+				border-top: 1px solid #fff;
+			}
+
+			li:first-child {
+				border-top: none; 
+			}
+
+			a {
+				width: 100%;
+				padding: 5px 10px;
+				font-size: 16px;
+				display: block;
+				color: #416ea7;
+			}
+
+			a:hover {
+				color: #fff;
+			}
 		}
 	}	
 

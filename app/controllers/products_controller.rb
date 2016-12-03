@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
 	skip_before_filter :verify_authenticity_token
 
 	def index
+
 		@title = "Головна"
 
 		# @products = Product.includes([:categories, :user]).latest
@@ -24,6 +25,30 @@ class ProductsController < ApplicationController
 		# @products = Product.search('lorem').records
 	end
 	
+	def search
+
+		@search = Product.search do
+			fulltext params[:search]
+
+			paginate page: 1, per_page: 7
+			order_by :id, :desc
+		end if params[:search] != ""
+
+		@products = @search.try(:results)   
+
+		# @query = @products.map { |product| { product.id => product.title } }.reduce(:merge)
+
+		if @products.present?
+			@query = '<ul>'
+			@products.each { |product| @query += "<li><a href='/products/#{product.id}'>#{product.title}</a></li>" }
+			@query += '</ul>'.html_safe
+		end
+			
+		respond_to do |format|
+			format.json { render json: { query: @query }, status: :ok }
+		end	
+	end	
+
 	def show
 
 	end
