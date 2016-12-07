@@ -1,0 +1,15 @@
+<div id="comment_modal_block">
+	<div id="modal_content">	
+		<div id="info_modal_block"></div>
+		<div class="form-block">
+		<%= form_tag nil, method: :put, enforce_utf8: false, remote: true, id: 'update_comment_form' do %>
+			<div class="form-group">
+		    <%= text_area_tag 'comment[content]', nil, class: 'form-control', rows: 5, id: 'comment_modal_content' %>
+		  </div>
+
+		  <%= submit_tag "Оновити", class: 'btn btn-default', id: 'update_comment' %>
+		<% end %>
+		<%= submit_tag "Закрити", class: 'btn btn-default', id: 'close' %>
+		</div>
+	</div>
+</div>

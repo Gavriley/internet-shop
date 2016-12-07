@@ -28,14 +28,15 @@ class LineItemsController < ApplicationController
 	end	
 
 	def create
-		
-		@line_item = @cart.add_product(params[:product_id])
+		if params[:count].present? && (params[:count].to_i > 1)
+			params[:count].to_i.times { @line_item = @cart.add_product(params[:product_id]).save }		
+		else
+			@line_item = @cart.add_product(params[:product_id]).save
+		end	 
 
 		respond_to do |format|
-			if @line_item.save
-				format.js
-				format.html { redirect_to products_path }
-			end	
+			format.js
+			format.html { redirect_to products_path }
 		end	
 	end	
 

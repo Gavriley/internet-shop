@@ -55,7 +55,9 @@ group :test do
   gem 'capybara'
 end 
 
-# gem 'tire'
+gem 'headless'
+
+# gem 'capybara-webkit'
 
 gem 'aasm'
 gem 'progress_bar'
@@ -77,7 +79,19 @@ gem 'paypal-sdk-rest'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
-gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
+gem "selenium-webdriver", "~> 2.38.0"
+
+gem 'timecop'
+
+gem 'rubocop', require: false
+
+gem 'sidekiq'
+
+gem 'simplecov', :require => false, :group => :test
+
+group :development do
+  gem 'brakeman', :require => false
+end
 
 # gem 'elasticsearch-model'
 # gem 'elasticsearch-rails'

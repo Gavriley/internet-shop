@@ -1,0 +1,2 @@
+$("#info_block").html("");
+$("#comments_list").html("<%= escape_javascript(render @product.comments.includes(:user).order(created_at: :desc)) %>");

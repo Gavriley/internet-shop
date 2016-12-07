@@ -8,6 +8,7 @@ if($('#order_block')) {
 	$('#close').on('click', function(event) {
 		$('#order_block').css("display","none");
 		$("#info_block").html("");
+		event.preventDefault();
 	});
 
 	$(window).click(function(event) {

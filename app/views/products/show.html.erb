@@ -1,13 +1,64 @@
-<div class="show-product">
-	<h1>Назва продукту: "<%= @product.title %>"</h1>
-	<h2>Ціна: <%= number_to_currency(@product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></h2>
-	
-	<% if @product.categories.exists? %>
-	<h3>
-		<%= @product.categories.count != 1 ? 'Категорії: ' : 'Категорія:' %>
-		<%= @product.categories.map { |category| link_to category.name, category }.join(", ").html_safe %>
-	</h3>
-	<% end %>
+<div class="main-block">
+	<div class="show-product">
+		<h1><%= @product.title %></h1>
+		
+		<div class="product-information">
+			<%= image_tag @product.thumbnail.url(:large), class: 'thumbnail' %>
 
-	<p><%= image_tag @product.thumbnail.url(:large) %><%= sanitize(@product.description) %></p>
-</div>	
+			<% if @product.categories.exists? %>
+			<span>
+				<b><%= @product.categories.count != 1 ? 'Категорії: ' : 'Категорія:' %> </b>
+				<%= @product.categories.map { |category| link_to category.name, category }.join(" / ").html_safe %>
+			</span>
+			<% end %>
+		
+			<span>
+				<b>Ціна: </b><%= number_to_currency(@product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %>
+			</span>
+				
+			<%= form_tag line_items_path(product_id: @product), remote: true, enforce_utf8: false do %>
+				<%= text_field_tag 'count', 1 %>
+				<%= submit_tag 'В кошик', id: 'to_cart' %>
+			<% end %>
+			<hr>
+		</div>
+		
+		
+		<ul id="tabs">
+			<li><span class="active" id="description_tab" for="description_block">Опис</span></li>
+			<li><span id="comment_tab" for="comment_block">Відгуки</span></li>
+		</ul>	
+		
+		<div id="description_block">
+			<p><%= sanitize(@product.description) %></p>
+		</div>
+		
+		<div id="comment_block">
+			
+			<div id="info_block">
+				<% if notice %>
+				<div id="notice"><%= notice %></div>
+				<% elsif @comment.errors.any? %>
+				<%= get_error_messages @comment %>	
+				<% end %>
+			</div>
+
+			<span id="comments-info">На сторінці 3 коментарі</span>
+			<%= form_for @comment, url: product_comments_path(@product), html: { method: :post }, remote: true do |f| %>
+				<div class="form-group">
+           <%= f.text_area :content, class: "form-control", rows: 4, placeholder: "Введіть ваш коментар" %>
+        </div>
+        
+        <div class="form-group">
+          <input type="reset" class="btn btn-default" value="Очистити">
+          <%= f.submit "Відправити", class: "btn btn-success"%>
+        </div> 
+			<% end %>
+
+			<div id="comments_list">
+				<%= render @product.comments.includes(:user).order(created_at: :desc) %>
+			</div>	
+		</div>
+	</div>	
+</div>
+<%= render 'comment_modal' %>

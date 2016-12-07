@@ -64,6 +64,14 @@ Materials:
 		email: gavrileypetroinsilico@gmail.com
 		pass: testpaypal
 
+	solr: 
+		bundle exec rake sunspot:solr:start
+		bundle exec rake sunspot:solr:reindex
+		bundle exec sunspot-solr start -p	8981
+
+	redis
+		redis-server	
+
 /*****************! Next Task(01.12.2016) !*****************/
 
 email: oleh.demyanyuk@gmail.com
@@ -73,16 +81,19 @@ Development:
 	+ Email Callback(to admin and to client)
 	+ Check Reindex(create and destroy data) 
 	+ Log for payment
-	Selenium
+	- Selenium
 	
-	Gem SideKiq
-	Gem Timecop
-	Gem RuboCop
-	Gem Breakmen
-	Gem SimpleCow	
+	+ Gem SideKiq
+	+ Gem Timecop
+	+ Gem RuboCop
+	+ Gem Breakmen
+	+ Gem SimpleCow	
 
 Rspec:
-	Before After	
+	+ Before After	
 
-Read:
-	Capybara drivers Selenium
+Question:
+	-> Line items limit
+	-> Capybara Webkit
+	-> Session carts
+	-> TDD and BDD	

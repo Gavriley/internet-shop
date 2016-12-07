@@ -26,5 +26,8 @@ module InternetShop
 
     # config.web_console.development_only = false
     config.active_record.raise_in_transactional_callbacks = true
+
+    # config.autoload_paths += %W(#{config.root}/lib)
+    # config.eager_load_paths += %W(#{config.root}/lib)
   end
 end

@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
 	skip_before_filter :verify_authenticity_token
 
 	def index
+		# HardWorker.perform_in(200.second, 'SidekiqNew')
 
 		@title = "Головна"
 
@@ -50,7 +51,9 @@ class ProductsController < ApplicationController
 	end	
 
 	def show
+		@title = @product.title
 
+		@comment = @product.comments.build
 	end
 
 	def new

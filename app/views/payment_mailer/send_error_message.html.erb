@@ -1,5 +1,5 @@
 <p>
-	<%= "При оплаті заказі на суму #{number_to_currency(@order.amount, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u")} сталася помилка" %>
+	<%= "При оплаті заказі №#{@order.id} на суму #{number_to_currency(@order.amount, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u")} сталася помилка" %>
 </p>
 <br>
 <h1 align="center"><%= "Заказ №#{@order.id}" %></h1>

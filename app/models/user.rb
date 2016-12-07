@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :products
   has_many :comments, dependent: :destroy
-  has_attached_file :avatar, styles: { full: "300x300>", comment: "100x100>" }
+  has_attached_file :avatar, styles: { full: "300x300>", comment: "70x70>" }
 
   belongs_to :role
 

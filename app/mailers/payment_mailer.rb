@@ -2,16 +2,17 @@ class PaymentMailer < ApplicationMailer
 
 	def send_payment(order)
 		@order = order
-		mail(to: @order.email, subject: "Ви заказали товари")
+		# mail(to: @order.email, subject: "Новий заказ")
+		mail(to: [@order.email, ENV['admin_email']], subject: "Новий заказ")
 	end
 	
 	def send_success_message(order)
 		@order = order
-		mail(to: @order.email, subject: "Товари успішно оплачені")
+		mail(to: [@order.email, ENV['admin_email']], subject: "Товари успішно оплачені")
 	end
 
 	def send_error_message(order)
 		@order = order
-		mail(to: @order.email, subject: "Помилка при оплаті")
+		mail(to: [@order.email, ENV['admin_email']], subject: "Помилка при оплаті")
 	end	
 end

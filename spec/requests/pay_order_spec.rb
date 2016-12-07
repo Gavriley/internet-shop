@@ -1,6 +1,17 @@
 require 'rails_helper'
+require 'selenium-webdriver'
 
 describe 'PayOrder' do 
+	# before(:all) do 
+	# 	@browser = $browser = Selenium::WebDriver.for :firefox
+	# 	@blowser.get('localhost:3000')
+	# 	@browser.navigate.to "http://google.com"
+	# end	
+
+	# after(:all) do
+	# 	@browser.quit
+	# end	
+
 	before(:each) do 
   	sign_in FactoryGirl.create(:user)
   	5.times { FactoryGirl.create(:product) }
@@ -10,6 +21,22 @@ describe 'PayOrder' do
 
 		puts find('#cart').text
 	end
+
+	it 'create order in 2008' do
+		time = Time.local(2008, 9, 1, 10, 5, 0)
+  	Timecop.travel(time)
+  	Timecop.scale(3600)
+  	Timecop.freeze(Time.now)
+  	sleep(1)
+
+  	visit carts_path
+
+  	fill_in 'Введіть адресу', with: 'Коновальця'
+
+		click_button 'Оформити заказ'
+
+		puts Order.last.created_at
+	end	
 
 	it 'create order' do
 

@@ -76,8 +76,8 @@ class OrdersController < ApplicationController
 
 		  charge = Stripe::Charge.create(
 		    customer: customer.id,
-		    # amount: @order.amount * 100,
-		    amount: -1000,
+		    amount: @order.amount * 100,
+		    # amount: -1000,
 		    description: "Заказ №#{@order.id}", 
 		    currency: 'UAH'
 		  )
