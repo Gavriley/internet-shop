@@ -1,9 +1,9 @@
 	$(".top-bar > ul > li > a").hover(
 		function() {
-			$(this).animate({'color': '#01a161', 'background-color': '#dcdbdb'}, 400);
+			$(this).animate({'color': '#01a161', 'background-color': '#dcdbdb'}, 320);
 		},
 		function() {
-			$(this).animate({'color': '#fff', 'background-color': '#363636'}, 400);
+			$(this).animate({'color': '#fff', 'background-color': '#363636'}, 320);
 		}
 	);	
 

@@ -21,9 +21,15 @@
 			<h1>Категорії</h1>
 			<ul id="category_list">
 				<% @categories.each do |category| %>
-				<li><%= link_to category.name, category %><% if category.children.exists? %><span id="float_category">[+]</span><% end %></li>
+				<li>
+					<%= link_to category.name, category %>
+					<% if category.children.exists? %>
+					<span class="float-category" id="listener_<%= category.id %>" value="<%= category.id %>">[+]</span>
+					<% end %>
+				</li>
+				
 				<% if category.children.exists? %>
-				<ul class="nested">
+				<ul class="nested" id="nested_list_<%= category.id %>">
 					<% category.children.each do |nested_category| %>
 					<li><%= link_to nested_category.name, nested_category %></li>
 					<% end %>

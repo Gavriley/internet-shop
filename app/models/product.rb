@@ -6,6 +6,14 @@ class Product < ActiveRecord::Base
 	
 	before_destroy :check_product_in_cart
 
+	after_validation :clean_thumbnail_errors
+
+	attr_accessor :only_thumbnail
+
+	def thumbnail_validator
+    self.only_thumbnail = true
+  end  
+
 	has_many :comments
 	has_many :line_items
 	has_many :categories_products
@@ -13,10 +21,10 @@ class Product < ActiveRecord::Base
 
 	belongs_to :user
 
-	validates :user, presence: { message: "Помилка при добавленні товару" }
-	validates :title, presence: { message: "Заповніть поле заголовок" }, length: { maximum: 70, message: "Заголовок може містити максимум 70 символів" }
-	validates :description, length: { maximum: 2000, message: "Опис може містити максимум 2000 символів" }
-	validates :price, numericality: { greater_than_or_equal_to: 0.01, message: "Введіть коректну ціну" }
+	validates :user, presence: { message: "Помилка при добавленні товару" }, unless: :only_thumbnail
+	validates :title, presence: { message: "Заповніть поле заголовок" }, length: { maximum: 70, message: "Заголовок може містити максимум 70 символів" }, unless: :only_thumbnail
+	validates :description, length: { maximum: 2000, message: "Опис може містити максимум 2000 символів" }, unless: :only_thumbnail
+	validates :price, numericality: { greater_than_or_equal_to: 0.01, message: "Введіть коректну ціну" }, unless: :only_thumbnail
 	
 	validates_attachment :thumbnail, content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "image/jpg"], message: "Некоректний формат мініатюри" }
 	validates_with AttachmentSizeValidator, attributes: :thumbnail, less_than: 1.megabytes, message: "Максимальний розмір мініатюри 1 мегабайт"

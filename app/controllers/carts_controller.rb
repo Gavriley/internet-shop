@@ -1,7 +1,10 @@
 class CartsController < ApplicationController
 	before_action :set_cart, only: [:destroy]
+
 	rescue_from ActiveRecord::RecordNotFound, with: -> { redirect_to root_path }
 
+	load_and_authorize_resource
+	
 	def index
 		@title = "Корзина"
 		@cart = Cart.includes(:line_items).find(session[:cart_id])

@@ -52,15 +52,15 @@ class Order < ActiveRecord::Base
 
 		after_all_transitions :set_on_unverified
 
-		event :process, after: -> { PaymentMailer.send_payment(self).deliver_now } do
+		event :process, after: -> { EmailWorker.perform_async(self.id, 'process') } do
 			transitions from: :pending, to: :process, guard: [:has_line_items?, :has_correct_amount_price?]
 		end	
 		
-		event :sandbox, after: -> { PaymentMailer.send_success_message(self).deliver_now } do
+		event :sandbox, after: -> { EmailWorker.perform_async(self, 'success') } do
 			transitions from: :process, to: :sandbox
 		end	
 
-		event :failure, after: -> { PaymentMailer.send_error_message(self).deliver_now } do
+		event :failure, after: -> { EmailWorker.perform_async(self, 'error') } do
 			transitions from: :process, to: :failure
 		end	
 	end	

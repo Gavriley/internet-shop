@@ -1,4 +1,6 @@
 class LineItemsController < ApplicationController
+	load_and_authorize_resource
+	
 	include CurrentCart
 	before_action :set_cart
 	before_action :set_line_item, only: [:count_up, :count_down, :destroy]

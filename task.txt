@@ -81,7 +81,7 @@ Development:
 	+ Email Callback(to admin and to client)
 	+ Check Reindex(create and destroy data) 
 	+ Log for payment
-	- Selenium
+	+ Selenium
 	
 	+ Gem SideKiq
 	+ Gem Timecop
@@ -92,8 +92,47 @@ Development:
 Rspec:
 	+ Before After	
 
+Additional task:
+	+ Session Storage
+
 Question:
-	-> Line items limit
+	-> Line items limit 
 	-> Capybara Webkit
 	-> Session carts
 	-> TDD and BDD	
+	-> Capistrano
+	-> Solano CI
+
+Site development: 
+	+ pagination
+	+ button add product
+	+ validation only files	
+	+ upload avatar for user
+	+ user controller
+	+ file not found
+	
+/*****************! Next Task(13.12.2016) !*****************/	
+	
+Development:
+	+ send eamil across sidekiq	
+	fix brakeman
+	sidekiq Line items limit 
+	push message
+	cart from session to cookie
+	delete carts by sidekiq 
+	Continuous Integration
+	
+Gem: 
+	foreman	
+	server FAYE
+
+Rspec: 
+	context for order error with line items
+
+Read:
+	Continuous Integration
+	Continuous Delivery
+
+Site development:
+	+ rewrite registration controller
+	+ cancancan

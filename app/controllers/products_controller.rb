@@ -1,12 +1,15 @@
 class ProductsController < ApplicationController
+	load_and_authorize_resource
+	
 	include ApplicationHelper
 
 	before_action :set_product, only: [:show, :edit, :update, :destroy]
+	before_action :delete_thumbnail, only: :update
 	
-	skip_before_filter :verify_authenticity_token
+	# skip_before_filter :verify_authenticity_token
 
 	def index
-		# HardWorker.perform_in(200.second, 'SidekiqNew')
+		# HardWorker.perform_in(1.second, 'SidekiqNew')
 
 		@title = "Головна"
 
@@ -21,7 +24,7 @@ class ProductsController < ApplicationController
 
 		@products = @search.results   
 
-		File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << "#{@search.total}"    }
+		# File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << "#{valid.valid?}"    }
 
 		# @products = Product.search('lorem').records
 	end
@@ -54,6 +57,8 @@ class ProductsController < ApplicationController
 		@title = @product.title
 
 		@comment = @product.comments.build
+
+		@comments = @product.comments.includes(:user).order(created_at: :desc)
 	end
 
 	def new
@@ -82,10 +87,9 @@ class ProductsController < ApplicationController
 	end	
 
 	def update
-		@product.thumbnail.try(:destroy) if params[:drop_file]
-		
 		respond_to do |format|
 			if @product.update(product_params)
+				format.js { redirect_to edit_product_path(@product), notice: "Продукт успішно оновлено" }
 				format.html { redirect_to edit_product_path(@product), notice: "Продукт успішно оновлено" }
 			else
 				format.js 
@@ -94,33 +98,26 @@ class ProductsController < ApplicationController
 		end
 	end
 
-	def destroy
-		
-	end	
-
 	def valid_thumbnail
-		@product = Product.new(thumbnail: params[:thumbnail])
-
-		@product.valid?
-
-		@product.errors.delete(:title) if @product.errors.has_key?(:title)
-		@product.errors.delete(:user) if @product.errors.has_key?(:user)
-		@product.errors.delete(:description) if @product.errors.has_key?(:description)
-		@product.errors.delete(:price) if @product.errors.has_key?(:price)
-
-		# File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << @product.thumbnail }
-		respond_to do |format|
-			if @product.errors.any?
-				format.json { render :create, json: { errors: get_error_messages(@product) }, status: :unprocessable_entity }
-			else
-				format.json { render :create, json: nil, status: :ok }
-			end	
-		end	
-	end	
+    @product = Product.new(thumbnail: params[:thumbnail])
+    @product.thumbnail_validator
+    
+    respond_to do |format|
+      if @product.valid?
+        format.json { render :create, json: nil, status: :ok }
+      else
+        format.json { render :create, json: { errors: get_error_messages(@product) }, status: :unprocessable_entity }
+      end 
+    end 
+  end  
 
 	private
+		def delete_thumbnail
+			@product.thumbnail.try(:destroy) and @product.save if params[:drop_file]
+		end	
+
 		def set_product
-			@product = Product.includes([:categories, :user]).find(params[:id])
+			@product = Product.find(params[:id])
 		end	
 
 		def product_params

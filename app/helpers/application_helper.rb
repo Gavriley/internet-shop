@@ -26,6 +26,11 @@ module ApplicationHelper
 		"<div id=notice>#{notice}</div>".html_safe
 	end	
 
+	def get_alert
+		return "" if flash[:alert].nil?
+		"<div id=alert>#{flash[:alert]}</div>".html_safe
+	end	
+
 	def get_orders_unverified_count
 		@orders_count = Order.where(unverified: true).count if @orders_count.nil?
 		

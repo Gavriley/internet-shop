@@ -28,7 +28,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Unicorn as the app server
+# Use Unicorn as the app server/
 # gem 'unicorn'
 
 # Use Capistrano for deployment
@@ -40,6 +40,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'byebug'
+  gem 'headless'
 end
 
 group :development do
@@ -55,7 +56,6 @@ group :test do
   gem 'capybara'
 end 
 
-gem 'headless'
 
 # gem 'capybara-webkit'
 

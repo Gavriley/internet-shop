@@ -14,6 +14,7 @@ Rails.application.config.assets.precompile += %w( file.js )
 Rails.application.config.assets.precompile += %w( tabs.js )
 Rails.application.config.assets.precompile += %w( menu.js )
 Rails.application.config.assets.precompile += %w( header.js )
+Rails.application.config.assets.precompile += %w( admin_modal.js )
 Rails.application.config.assets.precompile += %w( order_modal.js )
 Rails.application.config.assets.precompile += %w( comment_modal.js )
 

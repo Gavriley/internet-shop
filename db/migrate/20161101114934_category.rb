@@ -4,7 +4,5 @@ class Category < ActiveRecord::Migration
   		t.string :name, null: false, default: "", limit: 40
   		t.integer :parent_id, null: false, default: 0
   	end	
-
-  	add_index :categories, :name, unique: true
   end
 end

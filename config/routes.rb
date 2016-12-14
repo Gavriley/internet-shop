@@ -1,7 +1,11 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
+  devise_scope :user do
+    post 'users/valid_avatar', to: 'users/registrations#valid_avatar', as: 'valid_avatar'
+  end
 
   resources :products do
     post 'valid_thumbnail', to: 'products#valid_thumbnail', as: 'valid_thumbnail', on: :collection
@@ -29,13 +33,29 @@ Rails.application.routes.draw do
   namespace :admin do
     root "products#dashboard"
 
-    resources :products
-    resources :categories
-    resources :comments
-    resources :orders
-  end  
+    resources :products do
+      put '/', to: 'products#index', on: :collection
+    end  
+      
+    resources :categories do
+      put 'modal', to: 'categories#modal', on: :member
+    end 
+     
+    resources :comments do
+      put 'modal', to: 'comments#modal', on: :member
+    end 
+    
+    resources :users do 
+      put '/', to: 'users#index', on: :collection
+    end  
 
+    resources :orders
+    
+  end  
+  
   mount Sidekiq::Web, at: '/sidekiq'
+
+  get "*any", via: :all, to: 'application#not_found'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

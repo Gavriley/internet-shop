@@ -1,18 +1,19 @@
 require 'rails_helper'
 require 'selenium-webdriver'
 
-describe 'PayOrder' do 
+describe 'PayOrder', { type: :feature, js: true } do 
 	# before(:all) do 
-	# 	@browser = $browser = Selenium::WebDriver.for :firefox
-	# 	@blowser.get('localhost:3000')
+	# 	@browser = $browser = Selenium::WebDriver.for :chrome
+	# 	# @blowser.get('localhost:3000')
 	# 	@browser.navigate.to "http://google.com"
 	# end	
 
 	# after(:all) do
-	# 	@browser.quit
+	# 	$browser.quit
 	# end	
 
 	before(:each) do 
+		visit root_path
   	sign_in FactoryGirl.create(:user)
   	5.times { FactoryGirl.create(:product) }
 		

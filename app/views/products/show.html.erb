@@ -7,8 +7,8 @@
 
 			<% if @product.categories.exists? %>
 			<span>
-				<b><%= @product.categories.count != 1 ? 'Категорії: ' : 'Категорія:' %> </b>
-				<%= @product.categories.map { |category| link_to category.name, category }.join(" / ").html_safe %>
+				<b><%= @count_cat != 1 ? 'Категорії: ' : 'Категорія:' %> </b>
+				<%= @product_cat_list %>
 			</span>
 			<% end %>
 		
@@ -43,10 +43,15 @@
 				<% end %>
 			</div>
 
-			<span id="comments-info">На сторінці 3 коментарі</span>
+			<span id="comments-info">
+				<% comments_count = @product.comments.count %>
+				<%= 'На сторінці ' + (!comments_count.zero? ? 'присутні ' + plural_form(comments_count, ['відгук', 'відгуки', 'відгуків']) : 'відсутні відгуки') %>
+			</span>
+
+			<% if can? :create, @comment %>
 			<%= form_for @comment, url: product_comments_path(@product), html: { method: :post }, remote: true do |f| %>
 				<div class="form-group">
-           <%= f.text_area :content, class: "form-control", rows: 4, placeholder: "Введіть ваш коментар" %>
+           <%= f.text_area :content, class: "form-control", rows: 4, placeholder: "Введіть ваш відгук" %>
         </div>
         
         <div class="form-group">
@@ -54,9 +59,10 @@
           <%= f.submit "Відправити", class: "btn btn-success"%>
         </div> 
 			<% end %>
+			<% end %>
 
 			<div id="comments_list">
-				<%= render @product.comments.includes(:user).order(created_at: :desc) %>
+				<%= render @comments %>
 			</div>	
 		</div>
 	</div>	

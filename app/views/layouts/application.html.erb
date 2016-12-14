@@ -8,7 +8,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="general-block">
-	<%= render 'layouts/admin_bar' %>
+	<%= render 'layouts/admin_bar' if @admin %>
 	<%= render 'layouts/header' %>
 	<%= render 'layouts/sidebar' %>
 
@@ -18,7 +18,7 @@
 	<%= javascript_include_tag 'tabs' if controller_name == "products" && action_name == 'show' %>
 	<%= javascript_include_tag 'comment_modal' if controller_name == "products" && action_name == 'show' %>
 	<%= javascript_include_tag 'header' %>
-	<%= javascript_include_tag 'file' if controller_name == "products" && (action_name == "new" || action_name == "edit") %>
+	<%= javascript_include_tag 'file' %>
 	<%= javascript_include_tag 'order_modal' if controller_name == "carts" %>
 </body>
 </html>

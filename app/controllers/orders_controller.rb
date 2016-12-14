@@ -1,6 +1,8 @@
 require 'json'
 
 class OrdersController < ApplicationController
+	load_and_authorize_resource
+	
 	include CurrentCart
 	skip_before_filter :verify_authenticity_token
 
@@ -10,7 +12,7 @@ class OrdersController < ApplicationController
 	before_action :set_order, only: [:show, :create_stripe]
 
 	def show
-
+		# PaymentMailer.send_payment(@order).deliver_now
 		raise ActiveRecord::RecordNotFound if !@order.process?
 		
 		@liqpay = create_liqpay 
@@ -53,7 +55,6 @@ class OrdersController < ApplicationController
 	end	
 
 	def paypal_response 
-		params.permit!
 		@order = Order.find(params[:invoice])
 		@order.pay_with = "PayPal"
 

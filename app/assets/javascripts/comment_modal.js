@@ -3,9 +3,9 @@ $('#comments_list').click(function(event){
 
 	if(action.attr('id') == 'edit_comment') {
 		// console.log($('#comment_content_' + action.attr('value')).html());
-		$("#info_modal_block").html('');
-		$('#update_comment_form').attr('action', action.attr('href'));
-		$('#comment_modal_content').val($('#comment_content_' + action.attr('value')).html());
+		$("#info_block").html('');
+		$('#update_category_form').attr('action', action.attr('href'));
+		$('#category_modal_name').val($('#category_name_' + action.attr('value')).html());
 		$('#comment_modal_block').css("display","block");
 		event.preventDefault();
 	}

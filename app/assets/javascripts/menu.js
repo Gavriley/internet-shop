@@ -1,42 +1,58 @@
-// var category_list = document.getElementById('category_list');
-var active_li = null; 
-var active_ul = null;
+// var active_li = sessionStorage.active_li; 
+// var active_ul = sessionStorage.active_ul;
+
+var active_listener = undefined; 
+var active_nested_list = undefined;
+
+if(sessionStorage.active_cat !== undefined) {
+	
+	active_listener = $('#listener_' + sessionStorage.active_cat);
+	active_nested_list = $('#nested_list_' + sessionStorage.active_cat);
+	
+	categoryListener(active_listener, active_nested_list, sessionStorage.active_cat, false);
+}
+
 
 $('#category_list').click(function(event) {
-	var li = event.target;
+	var element = $(event.target); 
 
-	if(li.id != 'float_category') return false;
+	if(element.attr('class') != 'float-category') return true;
 
-	var ul = li.parentNode.nextElementSibling;
+	var cat_id = element.attr('value');
+	
+	categoryListener($('#listener_' + cat_id), $('#nested_list_' + cat_id), cat_id, true);
+});
 
-	if(ul.nodeName != 'UL') return false;
+function categoryListener(listener, nested_list, cat_id, click) {
 
-	/*****************************************/
+	if(listener.is(active_listener) && click) {
+		listener.html('[+]');
+		nested_list.css('display', 'none');
 
-	if(li == active_li) {
-		ul.style.display = "";
-		li.innerHTML = '[+]';
+		active_listener = undefined; 
+		active_nested_list = undefined;
 
-		active_li = null; 
-		active_ul = null;
+		sessionStorage.active_cat = undefined;
 	}else {
-		if(active_ul == null && active_li == null) {
-			active_ul = ul;
-			active_li = li;
+		if(active_listener == undefined && active_nested_list == undefined) {
+			active_listener = listener;
+			active_nested_list = nested_list;
 
-			active_ul.style.display = "block";
-			// active_ul.animate({'display': 'block'});
+			sessionStorage.active_cat = cat_id;
 
-			active_li.innerHTML = '[-]';
+			active_listener.html('[-]');
+			active_nested_list.css('display', 'block');
 		}else {
-			active_ul.style.display = "";
-			active_li.innerHTML = '[+]';
+			active_listener.html('[+]');
+			active_nested_list.css('display', 'none');
 
-			active_ul = ul;
-			active_li = li;
+			active_listener = listener;
+			active_nested_list = nested_list;
 
-			active_ul.style.display = "block";
-			active_li.innerHTML = '[-]';
+			sessionStorage.active_cat = cat_id;
+
+			active_listener.html('[-]');
+			active_nested_list.css('display', 'block');
 		}
 	}
-});
+}

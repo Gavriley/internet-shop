@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "NewProducts" do
-	before(:all) do 
+	before(:each) do 
   	sign_in FactoryGirl.create(:user)
 	end	
 

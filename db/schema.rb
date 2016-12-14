@@ -23,8 +23,6 @@ ActiveRecord::Schema.define(version: 20161129142403) do
     t.integer "parent_id",            default: 0,  null: false
   end
 
-  add_index "categories", ["name"], name: "index_categories_on_name", unique: true
-
   create_table "categories_products", force: :cascade do |t|
     t.integer "category_id"
     t.integer "product_id"
