@@ -56,11 +56,11 @@ class Order < ActiveRecord::Base
 			transitions from: :pending, to: :process, guard: [:has_line_items?, :has_correct_amount_price?]
 		end	
 		
-		event :sandbox, after: -> { EmailWorker.perform_async(self, 'success') } do
+		event :sandbox, after: -> { EmailWorker.perform_async(self.id, 'success') } do
 			transitions from: :process, to: :sandbox
 		end	
 
-		event :failure, after: -> { EmailWorker.perform_async(self, 'error') } do
+		event :failure, after: -> { EmailWorker.perform_async(self.id, 'error') } do
 			transitions from: :process, to: :failure
 		end	
 	end	

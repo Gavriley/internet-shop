@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '4.2.7.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -35,72 +34,50 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'rspec-rails', '~>3.5'
+  gem 'byebug'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'byebug'
   gem 'headless'
+  gem 'rspec-rails', '~>3.5'
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'brakeman', require: false
   gem 'spring'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
-  gem 'database_cleaner'
   gem 'capybara'
-end 
-
-
-# gem 'capybara-webkit'
+  gem 'database_cleaner'
+  gem 'simplecov', require: false
+end
 
 gem 'aasm'
-gem 'progress_bar'
-gem 'stripe'
-gem 'figaro'
-gem 'kaminari'
 gem 'bootstrap-sass'
 gem 'cancancan'
 gem 'devise'
-gem 'jquery-ui-rails'
-gem 'remotipart', '~> 1.2'
+gem 'faye'
+
+gem 'figaro'
+
+gem 'foreman'
+
+gem 'progress_bar'
+
+gem 'stripe'
+
+gem 'kaminari'
 gem 'liqpay', github: 'liqpay/sdk-ruby'
-
 gem 'paperclip', '~> 5.0.0'
+gem 'remotipart', '~> 1.2'
+
 gem 'paperclip-i18n'
-
 gem 'paypal-sdk-rest'
-
+gem 'rubocop', require: false
+gem 'selenium-webdriver', '~> 2.38.0'
+gem 'sidekiq'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
-gem "selenium-webdriver", "~> 2.38.0"
-
 gem 'timecop'
-
-gem 'rubocop', require: false
-
-gem 'sidekiq'
-
-gem 'simplecov', :require => false, :group => :test
-
-group :development do
-  gem 'brakeman', :require => false
-end
-
-# gem 'elasticsearch-model'
-# gem 'elasticsearch-rails'
-
-# gem 'sunspot_rails'
-# # gem 'sunspot_solr'
-
-# group :development do
-#   gem 'sunspot_solr'
-# end
-
-# gem 'progress_bar'

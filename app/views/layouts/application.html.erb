@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag    'main', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'http://localhost:9292/faye.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body class="general-block">
@@ -16,9 +17,8 @@
 
 	<%= javascript_include_tag 'menu' %>
 	<%= javascript_include_tag 'tabs' if controller_name == "products" && action_name == 'show' %>
-	<%= javascript_include_tag 'comment_modal' if controller_name == "products" && action_name == 'show' %>
+	<%= javascript_include_tag 'modal' %>
 	<%= javascript_include_tag 'header' %>
 	<%= javascript_include_tag 'file' %>
-	<%= javascript_include_tag 'order_modal' if controller_name == "carts" %>
 </body>
 </html>

@@ -1,126 +1,96 @@
 class ProductsController < ApplicationController
-	load_and_authorize_resource
-	
-	include ApplicationHelper
+  load_and_authorize_resource
 
-	before_action :set_product, only: [:show, :edit, :update, :destroy]
-	before_action :delete_thumbnail, only: :update
-	
-	# skip_before_filter :verify_authenticity_token
+  include ApplicationHelper
 
-	def index
-		# HardWorker.perform_in(1.second, 'SidekiqNew')
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :delete_thumbnail, only: :update
+  
+  # skip_before_filter :verify_authenticity_token
 
-		@title = "Головна"
+  def index
+    @title = "Головна"
+    set_search_products 
+  end
+  
+  def search
+    search_products = set_search_products 5 if params[:search].present? 
+    render json: { query: create_search_query(search_products) }, status: :ok
+  end 
 
-		# @products = Product.includes([:categories, :user]).latest
+  def show
+    @title = @product.title
+    @comment = @product.comments.build
+    @comments = @product.comments.includes(:user).order(created_at: :desc)
+  end
 
-		@search = Product.search do
-			fulltext params[:search]
+  def new
+    @title = "Новий товар"
+    @product = Product.new
+  end
 
-			paginate page: 1, per_page: 40
-			order_by :id, :desc
-		end
+  def edit
+    @title = %{Редагувати "#{@product.title}"}
+  end
 
-		@products = @search.results   
+  def create
+    @product = Product.new(product_params)
+    @product.user = current_user
 
-		# File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << "#{valid.valid?}"    }
+    respond_to do |format|
+      if @product.save
+        format.js { redirect_to edit_product_path(@product), notice: "Товар успішно створений" }
+      else
+        format.js { render :product }
+      end 
+    end 
+  end 
 
-		# @products = Product.search('lorem').records
-	end
-	
-	def search
+  def update
+    if @product.update(product_params)
+      flash[:notice] = "Товар успішно оновлено"
+      render :product, format: :js
+    else
+      render :product, format: :js
+    end 
+  end
 
-		@search = Product.search do
-			fulltext params[:search]
+  def destroy
+    @product.destroy
+    redirect_to products_path, notice: "Товар знищено"
+  end 
 
-			paginate page: 1, per_page: 7
-			order_by :id, :desc
-		end if params[:search] != ""
-
-		@products = @search.try(:results)   
-
-		# @query = @products.map { |product| { product.id => product.title } }.reduce(:merge)
-
-		if @products.present?
-			@query = '<ul>'
-			@products.each { |product| @query += "<li><a href='/products/#{product.id}'>#{product.title}</a></li>" }
-			@query += '</ul>'.html_safe
-		end
-			
-		respond_to do |format|
-			format.json { render json: { query: @query }, status: :ok }
-		end	
-	end	
-
-	def show
-		@title = @product.title
-
-		@comment = @product.comments.build
-
-		@comments = @product.comments.includes(:user).order(created_at: :desc)
-	end
-
-	def new
-		@title = "Новий товар"
-		@product = Product.new
-	end
-
-	def edit
-		@title = %{Редагувати "#{@product.title}"}
-	end
-
-	def create
-		@product = Product.new(product_params)
-		@product.user = current_user
-
-		respond_to do |format|
-			if @product.save
-				format.html { redirect_to edit_product_path(@product), notice: "Продукт успішно створений" }
-				format.js { redirect_to edit_product_path(@product), notice: "Продукт успішно створений" }
-			else
-				format.html { render :new }
-				format.js 
-				format.json { render json: @product.errors }
-			end	
-		end	
-	end	
-
-	def update
-		respond_to do |format|
-			if @product.update(product_params)
-				format.js { redirect_to edit_product_path(@product), notice: "Продукт успішно оновлено" }
-				format.html { redirect_to edit_product_path(@product), notice: "Продукт успішно оновлено" }
-			else
-				format.js 
-				format.json { render json: @product.errors }
-			end	
-		end
-	end
-
-	def valid_thumbnail
+  def valid_thumbnail
     @product = Product.new(thumbnail: params[:thumbnail])
     @product.thumbnail_validator
     
-    respond_to do |format|
-      if @product.valid?
-        format.json { render :create, json: nil, status: :ok }
-      else
-        format.json { render :create, json: { errors: get_error_messages(@product) }, status: :unprocessable_entity }
-      end 
+    if @product.valid?
+      render json: nil, status: :ok
+    else
+      render json: { errors: get_error_messages(@product) }, status: :unprocessable_entity
     end 
   end  
 
-	private
-		def delete_thumbnail
-			@product.thumbnail.try(:destroy) and @product.save if params[:drop_file]
-		end	
+  private
+    def set_search_products(per_page = 20)
+      @search = Product.search do
+      fulltext params[:search]
+      with(:published, true)
+      paginate page: 1, per_page: per_page
+      order_by :id, :desc
+      end
+      @products = @search.results  
+    end 
 
-		def set_product
-			@product = Product.find(params[:id])
-		end	
+    def delete_thumbnail
+      @product.thumbnail.try(:destroy) and @product.save if params[:drop_file]
+    end 
 
-		def product_params
-			params.require(:product).permit(:title, :description, :price, :thumbnail, :drop_file, :published, { category_ids: [] })
-		end	
-end	
+    def set_product
+      @product = Product.find(params[:id])
+    end 
+
+    def product_params
+      params.require(:product).permit(:title, :description, :price, :thumbnail, :drop_file, :published, { category_ids: [] })
+    end 
+end 

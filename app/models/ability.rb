@@ -10,7 +10,7 @@ class Ability
         guest_can 
       when 'client'
         client_can 
-      when 'manage'
+      when 'manager'
         manager_can     
       when 'admin'
         admin_can  
@@ -28,32 +28,37 @@ class Ability
     def manager_can
       client_can
 
-      can :manage, Comment, product: { user: @ability_user }
+      can :destroy, Comment do |comment| comment.product.user == @ability_user || comment.user == @ability_user end
 
+      can :read, Product do |product| product.published == true || product.user == @ability_user end
       can :create, Product
       can :valid_avatar, Product
       can :update, Product, user: @ability_user
+      can :destroy, Product, user: @ability_user
     end  
 
     def client_can
       guest_can
 
-      can :create, Comment
+      can :create, Comment, product: { published: true }
       can :update, Comment, user: @ability_user
       can :destroy, Comment, user: @ability_user
     end  
 
     def guest_can
-      can :read, Product
+      can :read, Product, published: true 
       can :search, Product
 
       can :read, Category
 
       can :read, Cart
       can :create, Cart
-
+      can :destroy, Cart
+      can :clean, Cart
+      
       can :read, LineItem
       can :create, LineItem
+      can :destroy, LineItem
       can :count_up, LineItem
       can :count_down, LineItem
 
@@ -62,7 +67,8 @@ class Ability
       can :liqpay_response, Order
       can :paypal_response, Order
       can :create_stripe, Order
-
+      can :modal, Order
+      
       can :read, Comment
     end  
 end

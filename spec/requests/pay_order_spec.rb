@@ -11,41 +11,50 @@ describe 'PayOrder', { type: :feature, js: true } do
 	# after(:all) do
 	# 	$browser.quit
 	# end	
-
+	
 	before(:each) do 
-		visit root_path
+		Role.create([{ name: 'admin', title: 'Адміністратор' }, { name: 'manager', title: 'Менеджер' }, { name: 'client', title: 'Клієнт' }, { name: 'guest', title: 'Гість' }])
+
   	sign_in FactoryGirl.create(:user)
-  	5.times { FactoryGirl.create(:product) }
-		
+  	3.times { FactoryGirl.create(:product) }
+
 		visit products_path
 		find_all('.button-cart').each { |link| link.click }
 
 		puts find('#cart').text
 	end
 
-	it 'create order in 2008' do
-		time = Time.local(2008, 9, 1, 10, 5, 0)
-  	Timecop.travel(time)
-  	Timecop.scale(3600)
-  	Timecop.freeze(Time.now)
-  	sleep(1)
+	# it 'create order in 2008' do
+	# 	time = Time.local(2008, 9, 1, 10, 5, 0)
+ #  	Timecop.travel(time)
+ #  	Timecop.scale(3600)
+ #  	Timecop.freeze(Time.now)
+ #  	sleep(1)
 
-  	visit carts_path
+ #  	visit carts_path
 
-  	fill_in 'Введіть адресу', with: 'Коновальця'
+ #  	user = User.last
+  	
+ #  	fill_in 'Введіть e-mail', with: user.email
+ #  	fill_in 'Введіть імя', with: user.name
+ #  	fill_in 'Введіть адресу', with: 'Коновальця'
 
-		click_button 'Оформити заказ'
+	# 	click_button 'Оформити заказ'
 
-		puts Order.last.created_at
-	end	
+	# 	puts Order.last.created_at
+	# end	
 
 	it 'create order' do
 
 		visit carts_path
 
-		fill_in 'Введіть адресу', with: 'Коновальця'
+		page.find_by_id('push_order').click
+
+  	fill_in 'Введіть адресу', with: 'Коновальця'
 
 		click_button 'Оформити заказ'
+
+		# page.find('.stripe-button-el').click
 
 		expect(page).to have_content "0шт. - 0.00 грн."
 		expect(page).to have_content "Заказ №"
@@ -56,6 +65,8 @@ describe 'PayOrder', { type: :feature, js: true } do
 
 		visit carts_path
 
+		page.find_by_id('push_order').click
+		
 		click_button 'Оформити заказ'
 
 		expect(page).to have_content "Заповніть поле e-mail"
@@ -63,18 +74,23 @@ describe 'PayOrder', { type: :feature, js: true } do
 		expect(page).to have_content "Заповніть поле адреса"
 	end	
 
-	it 'if delete line items from cart' do
-		visit carts_path
+	context 'if delete line items from cart' do
+		before(:each) do 
+			visit carts_path
 
-		@cart = Cart.last
+			Cart.last.line_items.delete_all
+		end	
 
-		@cart.line_items.delete_all
+		it 'fill form' do
 
-		fill_in 'Введіть адресу', with: 'Коновальця'
+			page.find_by_id('push_order').click
 
-		click_button 'Оформити заказ'
+	  	fill_in 'Введіть адресу', with: 'Коновальця'
 
-		expect(page).to have_content "0шт. - 0.00 грн."
-		expect(page).to have_content "Помилка при формуванні заказу"
+	  	click_button 'Оформити заказ'
+
+			expect(page).to have_content "0шт. - 0.00 грн."
+			expect(page).to have_content "Помилка при формуванні заказу"
+		end	
 	end	
 end	

@@ -5,7 +5,7 @@
 		  	<%= form_for @product, html: { multipart: true, method: :post }, remote: true do |f| %>
 		  	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 				<div class="col-md-8">
-					<h1>Створити новий продукт</h1>
+					<h1>Створити новий товар</h1>
 					<div id="info_block"><%= get_notice %><%= get_error_messages(@product) %></div>
 
 					<div class="form-group">
@@ -18,12 +18,12 @@
 					
 					<div class="form-group checkbox">
 						<%= f.label :published do %>
-						<%= f.check_box :published, {}, 'true', 'false' %> <span>Продукт опубліковано</span>
+						<%= f.check_box :published, {}, 'true', 'false' %> <span>Опублікувати товар</span>
 						<% end %>
 					</div>
 
 					<div class="form-group">
-						<%= f.submit "Створити продукт", class: "btn btn-default" %>
+						<%= f.submit "Створити товар", class: "btn btn-default" %>
 						<%= f.text_field :price, placeholder: "Введіть ціну", class: "form-control price-field" %>
 					</div>
 				</div>

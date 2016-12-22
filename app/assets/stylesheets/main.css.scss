@@ -67,6 +67,11 @@ body.general-block {
             width: 100%;
             border: 1px solid #eee
         }
+        
+        .action-block {
+            float: right;
+            font-size: 17px;
+        }
     }
 }
 
@@ -209,6 +214,13 @@ body.general-block {
         a#push_order {
             float: right
         }
+    }
+    .destroy-cart {
+        float: right;
+        width: 200px;
+    }
+    .cart-space {
+        margin-top: 30px;
     }
 }
 .order-content {
@@ -471,8 +483,7 @@ body.general-block {
         }
     }
 }
-#order_block, #comment_modal_block {
-    display: none;
+#modal {
     position: fixed;
     z-index: 3;
     left: 0;
@@ -482,7 +493,8 @@ body.general-block {
     padding-top: 10%;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.9);
-    #modal_content {
+
+    .order-content, .comment-content {
         background-color: #eee;
         border-radius: 20px;
         padding: 20px;
@@ -492,7 +504,7 @@ body.general-block {
     
 }
 
-#order_block {
+.order-content {
 
     .new_order {
         margin-top: 20px
@@ -506,10 +518,10 @@ body.general-block {
     }
 }
 
-#comment_modal_block {
+.comment-content {
   
   .form-block {
-    height: 160px;
+    height: 145px;
   }
 
   textarea {

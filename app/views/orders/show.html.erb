@@ -21,7 +21,7 @@
 	    		<td><%= item.product.title %></td>
 	    		<td><%= item.count %></td>
 	    		<td><%= number_to_currency(item.product.price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></td>
-	    		<td><%= number_to_currency(item.total_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></td></td>
+	    		<td><%= number_to_currency(item.total_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %></td>
 	    	</tr>
 	    	<% end %>
 	    </tbody>	  

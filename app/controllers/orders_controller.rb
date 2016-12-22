@@ -1,18 +1,17 @@
 require 'json'
 
 class OrdersController < ApplicationController
-	load_and_authorize_resource
-	
 	include CurrentCart
+
+	load_and_authorize_resource
+
 	skip_before_filter :verify_authenticity_token
 
 	rescue_from AASM::InvalidTransition, with: -> { redirect_to root_path, notice: "Помилка при формуванні заказу" }
 
-	before_action :set_cart, only: :create
 	before_action :set_order, only: [:show, :create_stripe]
 
 	def show
-		# PaymentMailer.send_payment(@order).deliver_now
 		raise ActiveRecord::RecordNotFound if !@order.process?
 		
 		@liqpay = create_liqpay 
@@ -20,26 +19,30 @@ class OrdersController < ApplicationController
 	end	
 
 	def create 
+		@cart = Cart.find(cookies[:cart_id])
 		@order = Order.new(order_params)
 
 		respond_to do |format|
 			if @order.valid?
 				handle_order
-				format.html { redirect_to @order }
 				format.js { redirect_to @order } 
 			else
-				format.html { render 'carts/index' }
 				format.js 
-				format.json { render json: @order.errors }
 			end	
 		end
 	end	
 
+	def modal
+		@order = Order.new
+		render :modal, format: :js
+	end	
+	
 	def liqpay_response
 		order_json_params = JSON.parse(Base64.decode64(params["data"]))
 		@order = Order.find(order_json_params["order_id"].delete("order_number_"))
 		@order.last_error = order_json_params['err_description'] if order_json_params['err_description']
-		@order.pay_with = "Liqpay"
+		
+		@order.update_column(:pay_with, "Liqpay")
 
 		case order_json_params["status"]
 			when 'sandbox'
@@ -56,7 +59,7 @@ class OrdersController < ApplicationController
 
 	def paypal_response 
 		@order = Order.find(params[:invoice])
-		@order.pay_with = "PayPal"
+		@order.update_column(:pay_with, "PayPal")
 
 		case params[:payment_status] 
 			when 'Completed'
@@ -83,7 +86,7 @@ class OrdersController < ApplicationController
 		    currency: 'UAH'
 		  )
 
-		  @order.pay_with = "Stripe"
+		  @order.update_column(:pay_with, "Stripe")
 
 		  @order.sandbox!
 
@@ -113,15 +116,9 @@ class OrdersController < ApplicationController
 			@order.process
 			@order.save
 
-			Cart.destroy(session[:cart_id])
-			session[:cart_id] = nil
+			destroy_cart
 
 			Order.pay_logger.info("Новий заказ №#{@order.id} находиться в очікуванні")
-		end	
-
-		def clean_cart
-			Cart.destroy(session[:cart_id])
-			session[:cart_id] = nil
 		end	
 
 		def set_order

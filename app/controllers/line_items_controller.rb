@@ -9,53 +9,44 @@ class LineItemsController < ApplicationController
 		@line_item.count += 1
 		@line_item.save
 
-		respond_to do |format|
-			format.js
-		end	
+		render :count, format: :js
 	end	
 
 	def count_down
 		@line_item.count -= 1
 		@line_item.save
 
-		respond_to do |format|
-			if @line_item.count > 0
-				format.js
-			else
-				@line_item.destroy
-				check_cart and return
-				format.js { render :destroy }
-			end 	
-		end	
+		if @line_item.count > 0
+			render :count, format: :js
+		else
+			@line_item.destroy
+			check_cart and return
+			render :destroy, format: :js
+		end 
 	end	
 
 	def create
 		if params[:count].present? && (params[:count].to_i > 1)
-			params[:count].to_i.times { @line_item = @cart.add_product(params[:product_id]).save }		
+			@line_item = @cart.add_products(params[:product_id], params[:count].to_i).save
 		else
-			@line_item = @cart.add_product(params[:product_id]).save
-		end	 
-
-		respond_to do |format|
-			format.js
-			format.html { redirect_to products_path }
+			@line_item = @cart.add_products(params[:product_id]).save
 		end	
+
+		render :create, format: :js
 	end	
 
 	def destroy
 		@line_item.destroy
 		check_cart and return
 
-		respond_to do |format|
-			format.js 
-		end	
+		render :destroy, format: :js
 	end	
 
 	private
 
 		def check_cart
 			if @cart.line_items.empty?
-				@cart.destroy and session[:cart_id] = nil
+				@cart.destroy and cookies.delete :cart_id
 				redirect_to root_path and return true
 			end	
 		end	

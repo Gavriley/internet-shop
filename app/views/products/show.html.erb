@@ -1,6 +1,15 @@
 <div class="main-block">
 	<div class="show-product">
-		<h1><%= @product.title %></h1>
+		<h1>
+			<%= @product.title %> 
+			
+			<% if can? :update, @product %>
+			<div class="action-block">
+				<%= link_to 'Редагувати', edit_product_path(@product) %> |
+				<%= link_to 'Видалити', product_path(@product), method: :delete, data: { confirm: "Ви впевнені?" } %>
+			</div>
+			<% end %>
+		</h1>
 		
 		<div class="product-information">
 			<%= image_tag @product.thumbnail.url(:large), class: 'thumbnail' %>
@@ -43,10 +52,11 @@
 				<% end %>
 			</div>
 
-			<span id="comments-info">
-				<% comments_count = @product.comments.count %>
-				<%= 'На сторінці ' + (!comments_count.zero? ? 'присутні ' + plural_form(comments_count, ['відгук', 'відгуки', 'відгуків']) : 'відсутні відгуки') %>
+			<span id="comments_info">
+				<%= get_comment_info @product %>
 			</span>
+			
+			
 
 			<% if can? :create, @comment %>
 			<%= form_for @comment, url: product_comments_path(@product), html: { method: :post }, remote: true do |f| %>
@@ -67,4 +77,5 @@
 		</div>
 	</div>	
 </div>
-<%= render 'comment_modal' %>
+
+<div id="modal_block"></div>

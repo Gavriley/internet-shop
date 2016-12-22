@@ -9,12 +9,17 @@
 			<%= comment.created_at.strftime("%H:%M:%S").to_s %>
     </span>
 
-    <% if can? :update, comment %>
+    
     <span class="action">
-      <%= link_to 'Редагувати', product_comment_path(@product, comment), id: 'edit_comment', value: comment.id %> | 
+      <% if can? :update, comment %>
+      <%= link_to 'Редагувати', modal_product_comment_path(@product, comment), method: :put, remote: true %> |
+      <% end %>
+
+      <% if can? :destroy, comment %>
       <%= link_to 'Видалити', product_comment_path(@product, comment), method: :delete, remote: true %>
+      <% end %>
     </span>
-    <% end %>
+    
 
   </div>
   <p id="comment_content_<%= comment.id %>"><%= comment.content %></p>

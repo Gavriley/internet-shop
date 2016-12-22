@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   resources :products do
     post 'valid_thumbnail', to: 'products#valid_thumbnail', as: 'valid_thumbnail', on: :collection
     post 'search', to: 'products#search', as: 'search', on: :collection
-    resources :comments, only: [:create, :update, :destroy]
+    
+    resources :comments, only: [:create, :update, :destroy] do 
+      put 'modal', to: 'comments#modal', on: :member
+    end  
   end  
 
   resources :categories, only: :show
@@ -20,12 +23,15 @@ Rails.application.routes.draw do
     patch 'count_down', to: 'line_items#count_down', as: 'count_down', on: :member
   end
     
-  resources :carts, only: :index
+  resources :carts do
+    post 'clean', to: 'carts#clean', on: :collection
+  end  
   
   resources :orders do
     post 'liqpay_response', to: 'orders#liqpay_response', as: 'liqpay_response', on: :collection
     post 'paypal_response', to: 'orders#paypal_response', as: 'paypal_response', on: :collection
     post 'create_stripe', to: 'orders#create_stripe', as: 'create_stripe', on: :member
+    put 'modal', to: 'orders#modal', on: :collection
   end  
 
   root "products#index"

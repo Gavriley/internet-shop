@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
 
   before_action { @categories = Category.includes(:children).where(parent_id: 0) }
 
-  before_action :set_cart_params
-
   before_action :verify_admin
 
   def not_found
@@ -29,16 +27,6 @@ class ApplicationController < ActionController::Base
 				@admin = true
 			else
 				@admin = false
-			end	
-		end	
-
-		def set_cart_params
-			if session[:cart_id]
-				@cart_count = Cart.find(session[:cart_id]).total_count
-				@cart_price = Cart.find(session[:cart_id]).total_price
-			else
-				@cart_count = 0
-				@cart_price = 0.00
 			end	
 		end	
 

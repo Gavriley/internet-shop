@@ -1,6 +1,6 @@
 class EmailWorker
   include Sidekiq::Worker
-  sidekiq_options queue: "high"
+  # sidekiq_options queue: "send_email"
   sidekiq_options retry: false
 
   def perform(order_id, type)

@@ -115,19 +115,19 @@ Site development:
 	
 Development:
 	+ send eamil across sidekiq	
-	fix brakeman
-	sidekiq Line items limit 
-	push message
-	cart from session to cookie
-	delete carts by sidekiq 
+	+ fix brakeman
+	* sidekiq Line items limit 
+	+ push message
+	+ cart from session to cookie
+	+ delete carts by sidekiq 
 	Continuous Integration
 	
 Gem: 
-	foreman	
-	server FAYE
+	+ foreman	
+	+ server FAYE
 
 Rspec: 
-	context for order error with line items
+	+ context for order error with line items
 
 Read:
 	Continuous Integration
@@ -136,3 +136,15 @@ Read:
 Site development:
 	+ rewrite registration controller
 	+ cancancan
+	+	button destroy cart
+	+	manager tools
+	+	publich products
+		rewrite controllers
+	+	rewrite modal windows
+		rewrite routes
+
+Additional task:
+	+ chrome in full window	
+
+Question:
+	admin cancancan

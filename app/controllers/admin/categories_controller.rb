@@ -10,7 +10,6 @@ class Admin::CategoriesController < Admin::AdminController
 
 	def create
 		@category = Category.new(category_params)
-		File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << category_params[:parent_id] }
 		@category.save
 		category_response "Категорія успішно добавлена"
 	end	
@@ -22,7 +21,7 @@ class Admin::CategoriesController < Admin::AdminController
 	
 	def modal
 		set_categories
-		render :category_modal, format: :js
+		render :modal, format: :js
 	end	
 
 	def update

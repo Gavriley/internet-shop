@@ -1,0 +1,12 @@
+start_solr: bundle exec rake sunspot:solr:start
+reindex_solr: bundle exec rake sunspot:solr:reindex
+reindex_solr: bundle exec rake sunspot:solr:reindex
+
+start_rails: rails s 
+
+start_redis: redis-server
+start_sidekiq: bundle exec sidekiq -q high,5 default
+
+start_faye: rackup faye.ru -s thin -E production
+
+

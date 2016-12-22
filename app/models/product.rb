@@ -29,7 +29,7 @@ class Product < ActiveRecord::Base
 	validates_attachment :thumbnail, content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "image/jpg"], message: "Некоректний формат мініатюри" }
 	validates_with AttachmentSizeValidator, attributes: :thumbnail, less_than: 1.megabytes, message: "Максимальний розмір мініатюри 1 мегабайт"
 
-	scope :latest, -> { where(published: true).order(created_at: :desc) }
+	scope :latest, -> { order(created_at: :desc) }
 
 	after_validation :clean_thumbnail_errors
 
@@ -38,10 +38,7 @@ class Product < ActiveRecord::Base
 		text :description
 
 		integer :id
-	end
-
-	def validate_thumbnail?
-	  errors[:thumbnail].blank?
+		boolean :published
 	end
 
 	private

@@ -1,13 +1,6 @@
-<%
-	if session[:cart_id]
-		@cart_count = Cart.find(session[:cart_id]).total_count
-		@cart_price = Cart.find(session[:cart_id]).total_price
-	end	
-%>
-
 if($("#notice")) $("#notice").remove();
 
 $('#cart')
-	.html('<%= @cart_count %>шт. -  <%= number_to_currency(@cart_price, unit: " грн.", separator: ".", delimiter: " ", format: "%n %u") %>')
+	.html('<%= get_params_cart %>')
 	.css({'color':'#efefef'})
 	.animate({'color':'#000'}, 1000);

@@ -4,6 +4,9 @@
 				<li><%= link_to 'Головна', root_path, id: "item_menu" %></li>
 				<% if user_signed_in? %>
 				<li><%= link_to 'Кабінет', edit_user_registration_path %></li>
+				<% if can? :create, Product %>
+				<li><%= link_to 'Створити товар', new_product_path %></li>
+				<% end %>	
 				<li><%= link_to 'Вихід', destroy_user_session_path, method: :delete %></li>
 				<% else %>
 				<li><%= link_to 'Реєстрація', new_user_registration_path %></li>

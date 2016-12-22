@@ -2,6 +2,7 @@
 	$("#info_block").html("<%= get_error_messages @comment %>");
 <% else %>	
 	$("#info_block").html("<div id='notice'>Коментар успішно добавлений</div>");
+	$("#comments_info").html("<%= get_comment_info @product %>");
 	$("#comment_content").val("");
 	$("#comments_list").html("<%= escape_javascript(render @product.comments.includes(:user).order(created_at: :desc)) %>");
 <% end %>

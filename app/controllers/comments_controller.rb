@@ -1,43 +1,31 @@
 class CommentsController < ApplicationController
-	load_and_authorize_resource
+	load_and_authorize_resource :product
+  load_and_authorize_resource :comment, through: :product, singleton: true
 
-	before_action :set_product, only: [:create, :update, :destroy]
-	before_action :set_comment, only: [:update, :destroy]
+	before_action :set_product, only: [:create, :update, :destroy, :modal]
+	before_action :set_comment, only: [:update, :destroy, :modal]
 
 	def create
 		@comment = Comment.new(comment_params)
 		@comment.product = @product
 		@comment.user = current_user
-
-		respond_to do |format|
-			
-			if @comment.save
-				format.js 
-			else
-				format.js
-				format.json { render json: @comment.errors }
-			end		
-		end
+		@comment.save
+		
+		render :create, format: :js
 	end
 	
+	def modal
+		render :modal, format: :js
+	end	
+
 	def update
-		respond_to do |format|
-			
-			if @comment.update(comment_params)
-				format.js 
-			else
-				format.js
-				format.json { render json: @comment.errors }
-			end		
-		end
+		@comment.update(comment_params)
+		render :update, format: :js
 	end
 
 	def destroy
 		@comment.destroy
-		
-		respond_to do |format|
-			format.js
-		end	
+		render :destroy, format: :js
 	end
 
 	private

@@ -25,3 +25,19 @@ $(window).scroll(function() {
 });
 
 if($('.admin-bar-base')) $('.main-block ').css('margin', '20px auto');
+
+$(function() {
+
+  var faye = new Faye.Client('http://localhost:9292/faye');
+  faye.subscribe("/clean_cart", function() {
+  	console.log('ok');
+    $.ajax({
+      type: 'POST',
+      dataType: "json",
+      url: '/carts/clean',
+      success: function(result) {
+        $('#cart').html(result['cart']);  
+      }
+    });
+  });
+});
